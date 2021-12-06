@@ -1,0 +1,66 @@
+---
+title: "Mental Health"
+author: "Nads"
+date: "06/07/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+
+library(fable)
+library(lubridate)
+library(tsibble)
+library(tidyverse)
+library(readxl)
+library(ggplot2)
+
+
+#calls <- read_csv("Z:\\n8_data_v2.csv.gz") %>% clean_names()
+missing <- subset(calls, incident_type == "Missing Person")
+missing <- subset(missing, select = -c(4, 6, 9, 10, 15))
+
+## add mental health dataset
+mental_wide <- read_csv("data/samhi_21_01_2011_2018_LSOA.csv") %>% 
+  clean_names()
+mental_long <- read_csv("data/samhi_21_01_2011_2018_LSOA_tall.csv") %>% 
+  clean_names()
+
+
+#
+
+health_missing <- missing %>% group_by(lsoa11cd) %>% count() %>%
+  left_join(., mental_wide, by = c("lsoa11cd" ="lsoa11"))  
+  
+df2 <- health_missing %>% 
+  group_by(samhi_dec_2018) %>% 
+  count()
+
+
+ggplot(health_missing %>% 
+    filter(!is.na(samhi_dec_2018)), aes(x = as.factor(samhi_dec_2018), y = n )) + 
+    geom_boxplot() + 
+    geom_label(data = df2, aes(x = samhi_dec_2018, y = 50000, label = paste0("n = ",n))) + 
+    scale_y_log10() + 
+    labs(title = "Total missper from LSOAs in each MH decile - date??") + 
+    xlab("MH decile (1 = least and 10 = most deprived)") + 
+    ylab("Number of Missing Person Calls") + 
+    theme_bw()
+
+
+
+ggplot(mental_long, aes(x = year, y = prop_ibesa, group = lsoa11)) +
+  geom_point()
+
+```
+
+
+
+
+
+
+
+
+
+

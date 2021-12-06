@@ -1,0 +1,232 @@
+---
+title: "Untitled"
+author: "Nads"
+date: "16/07/2021"
+output: word_document
+---
+
+
+```{r load_data, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+
+library(dplyr)
+library(readr)
+library(janitor)
+library(ggplot2)
+library(tidyverse)
+library(lubridate)
+library(readxl)
+library(tsibble)
+library(forecast)
+library(sf)
+library(ggspatial)
+library(ggmap)
+library(knitr)
+library(sjPlot)
+library(tmap)
+library(sp)
+library(spdep)
+
+## data ----------------------------------------------------------------------------------------------------
+
+calls <- read_csv("Z:\\n8_data_v2.csv.gz") %>% clean_names()
+missing <- subset(calls, incident_type == "Missing Person")
+missing <- subset(missing, select = -c(4, 6, 9, 10, 15))
+
+ #add lsoa 
+name_code <- read_csv("data/Lower_Layer_Super_Output_Areas_December_2011_Names_and_Codes_in_England_and_Wales.csv") %>%
+  clean_names() %>%
+  select(lsoa11cd, lsoa11nm)
+missing <- left_join(missing, name_code, by = c("lsoa" = "lsoa11nm"))
+
+ # add system changes 
+ # Add dummy variables
+missing <- missing %>% 
+  mutate(
+    # Dummy for change from old to new call-handling system
+    new_system = incident_date_time > yearweek(ymd("2017-06-03")),
+    # Dummy for changes in practice after adverse HMIC call-handling report
+    hmic_changes = incident_date_time > yearweek(ymd("2017-05-15")), 
+    # Dummy for bank holiday 
+    bank_holiday = incident_date_time %in% yearweek(as_date(timeDate::holidayLONDON(year = 2015:2020))))
+
+
+
+
+## final classification -----------------------------------------------------------------------------------
+minor_cat <- missing %>%  
+  #get rid of those not classed as missing or abondened
+  count(final_classification_description_1) %>% 
+  filter(n < 1500) %>%
+  pull(final_classification_description_1)
+
+missing <- missing %>% 
+  mutate(
+    final_class = case_when(
+      final_classification_description_1 %in% c(
+        "Missing Person", 
+        "MISSING PERSON"
+      ) ~ "Missing Person",
+      final_classification_description_1 %in% c(
+        "Absent Person", 
+        "ABSENT PERSON"
+      ) ~ "Absent Person",
+      final_classification_description_1 %in% minor_cat ~ "Other",
+      TRUE ~ final_classification_description_1
+    ))
+
+
+## origin -------------------------------------------------------------------------
+
+minor_categories2 <- missing %>% 
+  count(call_origin) %>% 
+  filter(n < 20) %>%   # basially ANPR
+  pull(call_origin)
+      
+missing <- missing %>% 
+  mutate(
+    call_origin = case_when(
+      call_origin %in% c(
+        "Alarm Company", 
+        "Email (to Public Contact Mailbox)",
+        "Helpdesk",
+        "Public Non Emergency (inc. Door Phones and PCPs)",
+        "Single Online Home",
+        "ANPR",
+        "Social Media"
+      ) ~ "public non-emergency",
+      call_origin == "Other Emergency Services (inc. Other Forces)" ~
+        "other emergency services",
+      call_origin == "Police Generated (inc. Call Sign / Collar Numbers)" ~
+        "police generated",
+      #call_origin %in% minor_categories2 ~ "other",
+      call_origin == "Unknown Choice List Value" | is.na(call_origin) ~ 
+        NA_character_,
+      TRUE ~ call_origin
+    ))
+      
+
+  
+## Grade change -------------------------------------------------------------
+
+missing <- missing %>% 
+  mutate(initial_grade_of_response = str_remove_all(initial_grade_of_response, "Grade"))
+missing <- missing %>% 
+  mutate(current_response_grade = str_remove_all(current_response_grade, "Grade"))
+missing <- missing %>%
+  mutate("Grade_Change" = ifelse(initial_grade_of_response == current_response_grade, "True", "False"))
+
+  
+
+# Attended -----------------------------------------------------------------
+missing$attended <- case_when(missing$attended_flag == 1 ~ "Yes", 
+                             missing$attended_flag == 0 ~ "No", 
+                             TRUE ~ NA_character_)
+
+# filter attended only 
+attended_missing <- missing %>% filter(attended == "Yes")
+
+
+
+
+```
+
+
+
+
+
+
+
+
+
+## rural/uran 
+
+```{r}
+
+rural_urban <- read_csv("data/Rural_Urban_Classification_(2011)_of_Lower_Layer_Super_Output_Areas_in_England_and_Wales (1).csv") %>% 
+  clean_names() %>%
+  select(-c(3,5))
+
+rural_urban %>% group_by(ruc11) %>%
+  count()
+
+rural_urban$RU[rural_urban$ruc11 == "Rural town and fringe" | 
+                    rural_urban$ruc11  =="Rural town and fringe in a sparse setting" | 
+                    rural_urban$ruc11  ==  "Rural village and dispersed" |
+                 rural_urban$ruc11  == "Rural village and dispersed in a sparse setting"] <- "Rural"
+rural_urban$RU[rural_urban$ruc11  == "Urban city and town" | 
+                    rural_urban$ruc11  == "Urban city and town in a sparse setting" |
+                    rural_urban$ruc11  == "Urban major conurbation" |
+                    rural_urban$ruc11  == "Urban minor conurbation"] <- "Urban"
+
+cheshire_lsoa %>% group_by(RU.x) %>%   #R =6204, U =28549
+  count()
+
+
+##join to cheshire 
+###
+#lsoa shapefile 
+shp <- "~/PostGrad/SEM 2/DISSO/disso/data/england_lsoa_2011.shp" #4 main LAs in england
+england_lsoa <- st_read(shp)
+england_lsoa <- st_transform(england_lsoa, 4326)
+
+calls_per_lsoa <- missing %>%  #158 NAs, 23 lsoas with 42 counts coded in wales
+  group_by(lsoa11cd) %>%
+  summarise(count=n())
+
+#cheshire_lsoa <- left_join(england_lsoa, calls_per_lsoa, by = c("code"="lsoa11cd"))  # why does the lsoas reduce by 251?/
+
+cheshire_lsoa <- left_join(cheshire_lsoa, rural_urban, by = c("code"="lsoa11cd")) %>%
+  select(c(-5,6))# why does the lsoas reduce by 251?/
+
+head(cheshire_lsoa)
+
+
+## basic map of counts 
+ggplot() + 
+  annotation_map_tile() +  # add basemap
+  geom_sf(data = cheshire_lsoa, aes(fill = count), alpha = 0.7) + # alpha sets the opacity
+  scale_fill_gradient2(name ="Number of Missper") + 
+  labs(
+    title = "Spatial Distribution of Missing Incidents",
+    x = NULL,
+    y = "Incidents per LSOA",
+    fill = "Missing Person"
+  )
+
+
+### ploting rural urban over rate
+ggplot() + 
+  annotation_map_tile() +  # add basemap
+  geom_sf(data = cheshire_lsoa, aes(fill = resrate), alpha = 0.7, col = "red") + 
+  facet_wrap(~RU.x) +
+  scale_fill_gradient2(name ="Number of Missper") + 
+  labs(
+    title = "Spatial Distribution of Missing Incidents",
+    x = NULL,
+    y = "Incidents per LSOA",
+    fill = "Missing Person"
+  )
+
+
+
+
+
+cheshire_lsoa %>% 
+  ggplot(aes(fill = resrate)) +
+    geom_sf(color = NA) +
+    facet_wrap(~RU.x) +
+    scale_fill_viridis_c()
+
+
+
+```
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,192 @@
+---
+title: "LSOAs"
+author: "Nads"
+date: "07/07/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+
+library(dplyr)
+library(readr)
+library(janitor)
+library(ggplot2)
+library(tidyverse)
+library(lubridate)
+library(readxl)
+library(tsibble)
+library(forecast)
+library(sf)
+library(ggspatial)
+library(ggmap)
+library(tmap)
+
+
+## lOAD DATASETS  ------------------------------------------------------------------- 
+calls <- read_csv("Z:\\n8_data_v2.csv.gz") %>% clean_names()
+missing <- subset(calls, incident_type == "Missing Person")
+missing <- subset(missing, select = -c(4, 6))
+ 
+  #add lsoa 
+name_code <- read_csv("data/Lower_Layer_Super_Output_Areas_December_2011_Names_and_Codes_in_England_and_Wales.csv") %>%
+  clean_names() %>%
+  select(lsoa11cd, lsoa11nm)
+missing <- left_join(missing, name_code, by = c("lsoa" = "lsoa11nm"))
+
+
+```
+
+
+
+
+
+## Map Missper across LSOAS
+
+```{r}
+
+###
+#lsoa shapefile 
+shp <- file.choose()  #read boundary shapefile
+england_lsoa <- st_read(shp)
+ggplot() + 
+  geom_sf(data = england_lsoa)
+england_lsoa <- st_transform(england_lsoa, 4326)
+
+calls_per_lsoa <- missing %>%  #per name not code
+  group_by(lsoa11cd) %>%
+  summarise(count=n())
+
+cheshire_lsoa <- left_join(england_lsoa, calls_per_lsoa, by = c("code"="lsoa11cd"))
+
+ggplot() + 
+  annotation_map_tile() +  # add basemap
+  geom_sf(data = cheshire_lsoa, aes(fill = count), alpha = 0.7) + # alpha sets the opacity
+  scale_fill_gradient2(name ="Number of Missper") + 
+  labs(
+    title = "Count of MissPer by LSOA",
+    x = NULL,
+    y = "Proportion of Missing Person",
+    fill = "Missing Person"
+  )
+
+
+## tmap 
+
+current_style <- tmap_style("col_blind")
+
+tm_shape(cheshire_lsoa) + 
+  tm_fill("count", title = "Missper") +
+  tm_borders(alpha = 0.1) +
+  tm_layout(main.title = "MissPer: 2015:2020", main.title.size = 0.7 ,
+            legend.position = c("right", "bottom"), legend.title.size = 0.8)
+
+
+
+## jenks 
+tm_shape(cheshire_lsoa) + 
+  tm_fill("count", style = "jenks", title = "Missper") +
+  tm_borders(alpha = 0.1) +
+  tm_layout(main.title = "MissPer: 2015:2020", main.title.size = 0.7 ,
+            legend.position = c("right", "bottom"), legend.title.size = 0.8)
+
+
+
+```
+
+There is a siginificant distribution of counts of missper across cheshire
+
+
+
+
+## LISA 
+
+
+```{r}
+library(spdep)
+
+##global 
+
+# generate weight list using Queen 
+missing_m <- as(cheshire_lsoa, "Spatial")
+w <- poly2nb(missing_m, row.names=missing_m$code)
+ww <-  nb2listw(w, style='W')
+
+moran.plot(missing_m$count, ww) 
+#positive spatial autocorrelation 
+
+moran(missing_m$count, ww, n=length(ww$neighbours), S0=Szero(ww))
+#0.2462985
+
+moran.mc(missing_m$count, ww, nsim=99999)
+
+
+## local 
+
+locm_bm <- localmoran(missing_m$count, ww)
+summary(locm_bm)
+
+missing_m$s_missing <- scale(missing_m$count) %>% as.vector() #scaled
+missing_m$l_missing <- lag.listw(ww, missing_m$s_missing)  #lagged
+
+x <- missing_m$s_missing  #check scatter plot 
+y <- missing_m$l_missing
+xx <- tibble(x,y)
+moran.plot(x, ww)
+
+missing_m <- st_as_sf(missing_m) %>% 
+  mutate(quad_sig = ifelse(missing_m$s_missing > 0 & 
+                              missing_m$l_missing > 0 & 
+                              locm_bm[,5] <= 0.05, 
+                     "high-high",
+                     ifelse(missing_m$s_missing <= 0 & 
+                              missing_m$l_missing <= 0 & 
+                              locm_bm[,5] <= 0.05, 
+                     "low-low", 
+                     ifelse(missing_m$s_missing > 0 & 
+                              missing_m$l_missing <= 0 & 
+                              locm_bm[,5] <= 0.05, 
+                     "high-low",
+                     ifelse(missing_m$s_missing <= 0 & 
+                              missing_m$l_missing > 0 & 
+                              locm_bm[,5] <= 0.05,
+                     "low-high", 
+                     "non-significant")))))
+
+table(missing_m$quad_sig)  #54 high-high, 598 non-significant 
+nrow(locm_bm[locm_bm[,5] <= 0.05,]) #only 54 are less then 0.05
+
+qtm(missing_m, fill="quad_sig", fill.title="LISA")
+
+
+
+```
+
+
+
+Using the queens criteria, created a weighted list matrix
+
+There is a positive spatial autocorrelation. with a moran value of 0.23 and a p value of of 1e-05 we can conclude that there is indeed significant global spatial autocorrelation (the spatial processes promoting the observed pattern of values is random by chance), so what is driving this measure. 
+
+
+LISA map is telling us that there was some moderate statistically significant clustering of mp in Cheshire
+
+
+This paper will test to see if levels of vulnerability can explain these levels using 
+  - IMD
+  - MH
+  - maybe carehomes 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+

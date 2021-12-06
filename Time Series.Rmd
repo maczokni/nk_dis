@@ -1,0 +1,356 @@
+---
+title: "Time Series Plots"
+author: "Nads"
+date: "05/07/2021"
+output: 
+html_document
+---
+
+
+
+```{r load_data, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(dplyr)
+library(readr)
+library(janitor)
+library(ggplot2)
+library(tidyverse)
+library(lubridate)
+library(readxl)
+library(tsibble)
+library(forecast)
+library(sf)
+library(ggspatial)
+library(ggmap)
+
+#calls <- read_csv("Z:\\n8_data_v2.csv.gz") %>% clean_names()
+missing <- subset(calls, incident_type == "Missing Person")
+missing <- subset(missing, select = -c(4, 6, 9, 10, 15))
+
+
+## final classification -----------------------------------------------------------------------------------
+minor_cat <- missing %>%  
+  #get rid of those not classed as missing or abondened
+  count(final_classification_description_1) %>% 
+  filter(n < 1500) %>%
+  pull(final_classification_description_1)
+
+missing <- missing %>% 
+  mutate(
+    final_class = case_when(
+      final_classification_description_1 %in% c(
+        "Missing Person", 
+        "MISSING PERSON"
+      ) ~ "Missing Person",
+      final_classification_description_1 %in% c(
+        "Absent Person", 
+        "ABSENT PERSON"
+      ) ~ "Absent Person",
+      final_classification_description_1 %in% minor_cat ~ "Other",
+      TRUE ~ final_classification_description_1
+    ))
+
+missing %>% group_by(final_class) %>% count() %>% View()
+
+
+
+## origin -------------------------------------------------------------------------
+missing %>% group_by(call_origin) %>% count() %>% View()
+
+minor_categories2 <- missing %>% 
+  count(call_origin) %>% 
+  filter(n < 20) %>%   # basially ANPR
+  pull(call_origin)
+      
+missing <- missing %>% 
+  mutate(
+    call_origin = case_when(
+      call_origin %in% c(
+        "Alarm Company", 
+        "Email (to Public Contact Mailbox)",
+        "Helpdesk",
+        "Public Non Emergency (inc. Door Phones and PCPs)",
+        "Single Online Home",
+        "Social Media"
+      ) ~ "Public non-emergency",
+      call_origin == "Other Emergency Services (inc. Other Forces)" ~
+        "Other emergency services",
+      call_origin == "Police Generated (inc. Call Sign / Collar Numbers)" ~
+        "Police generated",
+      call_origin %in% minor_categories2 ~ "Other",
+      call_origin == "Unknown Choice List Value" | is.na(call_origin) ~ 
+        NA_character_,
+      TRUE ~ call_origin
+    ))
+      
+     
+      
+```
+
+
+
+
+## Basic time series 
+
+```{r Basic Trend, echo=FALSE}
+
+missing %>%
+  mutate(week = as_date(yearweek(incident_date_time))) %>% 
+  count(week) %>% 
+  ggplot(aes(x = week, y = n)) +
+  geom_point() +
+  geom_smooth(formula = y ~ x, method = "loess", span = 0.2) +
+  # First UK case
+  #geom_vline(xintercept = as.Date("2020-01-23"), linetype = "33") +
+  # First UK lockdown begins
+  #geom_vline(xintercept = as.Date("2020-03-23"), linetype = "12") +
+  # First UK lockdown ends
+  #geom_vline(xintercept = as.Date("2020-06-01"), linetype = "42") +
+  scale_x_date(date_breaks = "6 months", date_labels = "%b\n%Y", 
+               limits = as.Date(c("2015-01-01", "2020-12-31"))) +
+  scale_y_continuous(limits = c(0, NA), labels = scales::comma_format()) +
+  labs(
+      title = "Missing Incident Trend: 2015:2020",
+      x = NULL,
+      y = "weekly count"
+    ) +
+  theme_minimal()
+
+```
+
+
+
+
+
+## Call Origin 
+
+```{r}
+
+#yearly proportion of call_origin
+
+year <- format(as.Date(missing$incident_date_time, format="%d/%m/%Y"),"%Y")
+
+calls_bar <-filter(missing, !is.na(year), !is.na(call_origin))
+calls_bar <- ggplot(data=missing, aes(x=year, fill=call_origin)) + geom_bar(position = "dodge",
+             mapping = aes(y = ..prop.., group = call_origin)) + 
+  ggtitle("Yearly Proportion of Call Origin")
+calls_bar + coord_flip()
+
+
+# monthly proportion 
+
+missing %>% 
+  filter(!is.na(call_origin)) %>% 
+  mutate(week = as_date(yearweek(incident_date_time))) %>% 
+  count(call_origin, week) %>% 
+  mutate(call_origin = fct_reorder(call_origin, n)) %>% 
+  ggplot(aes(x = week, y = n, fill = call_origin)) +
+  geom_area(position = "fill") +
+  scale_x_date(date_breaks = "3 months", date_labels = "%b\n%Y", expand = c(0, 0)) +
+  scale_y_continuous(labels = scales::percent_format()) +
+  scale_fill_brewer(type = "qual") + 
+  labs(
+    title = "Monthly Proportion of Calls Origin",
+    x = NULL,
+    y = "proportion of call origin",
+    fill = "call origin"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "bottom") + 
+  guides(fill=guide_legend(nrow=2,byrow=TRUE))
+
+
+## relationship between call origin and missing 
+
+
+
+
+```
+
+
+
+
+## Final Class
+
+
+```{r}
+
+missing %>%
+  filter(!is.na(final_class)) %>% 
+  mutate(week = as_date(yearweek(incident_date_time))) %>% 
+  count(final_class, week) %>% 
+  mutate(final_class = fct_reorder(final_class, n)) %>% 
+  ggplot(aes(x = week, y = n, fill = final_class)) +
+  geom_area(position = "fill") +
+  scale_x_date(date_breaks = "6 months", date_labels = "%b\n%Y", expand = c(0, 0)) +
+  scale_y_continuous(labels = scales::percent_format()) +
+  scale_fill_brewer(type = "qual") + 
+  labs(
+    title = "Different Classification for Missing Persons",
+    x = NULL,
+    y = "Proportion of Missing Person",
+    fill = "Missing Person"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "bottom") +    guides(fill=guide_legend(nrow=2,byrow=TRUE))
+
+
+
+
+```
+
+
+
+As years go on, less calls are classed as absent?
+
+
+
+
+
+## Relationship between final class and call origin 
+
+
+```{r}
+
+
+missing %>%
+  filter(final_class %in% c("Other")) %>%   #check 'absent' and 'other'
+  filter(!is.na(call_origin)) %>% 
+  mutate(week = as_date(yearweek(incident_date_time))) %>% 
+  count(call_origin, week) %>% 
+  mutate(call_origin = fct_reorder(call_origin, n)) %>% 
+  ggplot(aes(x = week, y = n, fill = call_origin)) +
+  geom_area(position = "fill") +
+  scale_x_date(date_breaks = "6 months", date_labels = "%b\n%Y", expand = c(0, 0)) +
+  scale_y_continuous(labels = scales::percent_format()) +
+  scale_fill_brewer(type = "qual") + 
+  labs(
+    title = "Different Classification for Missing Persons",
+    x = NULL,
+    y = "Proportion of Missing Person",
+    fill = "Call Origin"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "bottom") +    guides(fill=guide_legend(nrow=2,byrow=TRUE))
+
+
+
+```
+
+
+
+
+
+
+
+
+
+
+## Initial Grading vs Current 
+
+
+```{r}
+
+## intitial
+
+missing %>%
+  filter(!is.na(initial_grade_of_response)) %>% 
+  mutate(week = as_date(yearweek(incident_date_time))) %>% 
+  count(initial_grade_of_response, week) %>% 
+  mutate(initial_grade_of_response = fct_reorder(initial_grade_of_response, n)) %>% 
+  ggplot(aes(x = week, y = n, fill = initial_grade_of_response)) +
+           geom_area(position = "fill") +
+           scale_x_date(date_breaks = "6 months", date_labels = "%b\n%Y", expand = c(0, 0)) +
+           scale_y_continuous(labels = scales::percent_format()) +
+           scale_fill_brewer(type = "qual") + 
+           labs(
+             title = "Initial Grade: for Missing Persons",
+             x = NULL,
+             y = "Proportion of Missing Person",
+             fill = "Missing Person"
+           ) +
+           theme_minimal() +
+           theme(legend.position = "bottom") +    
+           guides(fill=guide_legend(nrow=2,byrow=TRUE))
+         
+ 
+
+## current 
+
+missing %>%
+  filter(!is.na(current_response_grade)) %>% 
+  mutate(week = as_date(yearweek(incident_date_time))) %>% 
+  count(current_response_grade, week) %>% 
+  mutate(current_response_grade = fct_reorder(current_response_grade, n)) %>% 
+  ggplot(aes(x = week, y = n, fill = current_response_grade)) +
+           geom_area(position = "fill") +
+           scale_x_date(date_breaks = "6 months", date_labels = "%b\n%Y", expand = c(0, 0)) +
+           scale_y_continuous(labels = scales::percent_format()) +
+           scale_fill_brewer(type = "qual") + 
+           labs(
+             title = "Current Grade: Missing Persons",
+             x = NULL,
+             y = "Proportion of Missing Person",
+             fill = "Missing Person"
+           ) +
+           theme_minimal() +
+           theme(legend.position = "bottom") +    
+           guides(fill=guide_legend(nrow=2,byrow=TRUE))
+         
+         
+
+## whether changed or not 
+
+missing <- missing %>% 
+  mutate(initial_grade_of_response = str_remove_all(initial_grade_of_response, "Grade"))
+missing <- missing %>% 
+  mutate(current_response_grade = str_remove_all(current_response_grade, "Grade"))
+missing <- missing %>%
+  mutate("Grade_Change" = ifelse(initial_grade_of_response == current_response_grade, "True", "False"))
+
+
+
+
+
+missing %>%
+  filter(!is.na(Grade_Change)) %>% 
+  mutate(week = as_date(yearweek(incident_date_time))) %>% 
+  count(Grade_Change, week) %>% 
+  mutate(Grade_Change = fct_reorder(Grade_Change, n)) %>% 
+  ggplot(aes(x = week, y = n, fill = Grade_Change)) +
+           geom_area(position = "fill") +
+           scale_x_date(date_breaks = "6 months", date_labels = "%b\n%Y", expand = c(0, 0)) +
+           scale_y_continuous(labels = scales::percent_format()) +
+           scale_fill_brewer(type = "qual") + 
+           labs(
+             title = "Whether grade changed",
+             x = NULL,
+             y = "Proportion of Missing Person",
+             fill = "Missing Person"
+           ) +
+           theme_minimal() +
+           theme(legend.position = "bottom") +    
+           guides(fill=guide_legend(nrow=2,byrow=TRUE))
+         
+
+```
+
+
+Majority of grading does change - why?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

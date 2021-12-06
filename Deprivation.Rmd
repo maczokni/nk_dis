@@ -1,0 +1,131 @@
+---
+title: "Deprivation"
+author: "Nads"
+date: "06/07/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+
+library(readr)
+library(janitor)
+library(dplyr)
+library(ggplot2)
+library(tsibble)
+library(tidyverse)
+library(lubridate)
+library(scales)
+library(sf)
+library(tmap)
+library(dplyr)
+library(broom)
+library(knitr)
+library(ggmap)
+library(leaflet)
+library(mapview)
+library(ggspatial)
+library(readxl)
+library(curl)
+
+
+#calls <- read_csv("Z:\\n8_data_v2.csv.gz") %>% clean_names()
+missing <- subset(calls, incident_type == "Missing Person")
+missing <- subset(missing, select = -c(4, 6, 9, 10, 15))
+missing$incident_date_time <- as.Date(missing$incident_date_time)
+
+imd <- read_xlsx("C:\\Users\\naken\\OneDrive\\Documents\\n8_cov\\File_1_-_IMD2019_Index_of_Multiple_Deprivation.xlsx", sheet = "IMD2019") %>% janitor::clean_names()
+
+imd_missing_grouped <- cheshire_lsoa %>% group_by(name) %>% count() %>%
+  left_join(., imd, by = c("name" ="lsoa_name_2011"))  
+  
+df <- imd_missing_grouped %>% 
+  group_by(index_of_multiple_deprivation_imd_decile) %>% 
+  count()
+
+summary(des$local_authority)
+
+
+ggplot(imd_missing_grouped %>% 
+    filter(!is.na(index_of_multiple_deprivation_imd_decile)), aes(x = as.factor(index_of_multiple_deprivation_imd_decile), y = n )) + 
+    geom_boxplot() + 
+    geom_label(data = df, aes(x = index_of_multiple_deprivation_imd_decile, y = 50000, label = paste0("n = ",n))) + 
+    scale_y_log10() + 
+    labs(title = "Total missper from LSOAs in each IMD decile 2015-2020") + 
+    xlab("IMD decile (1 = most and 10 = least deprived") + 
+    ylab("Number of Missing Person Calls)") + 
+    theme_bw()
+
+
+
+
+
+
+
+```
+
+
+
+
+
+
+
+## 
+
+```{r}
+
+#
+imd <- read_xlsx("C:\\Users\\naken\\OneDrive\\Documents\\n8_cov\\File_1_-_IMD2019_Index_of_Multiple_Deprivation.xlsx", sheet = "IMD2019") %>% janitor::clean_names()
+
+
+##bring in population statistics 
+lsoapop <- read_excel("C:/Users/naken/OneDrive/Documents/PostGrad/SEM 2/DISSO/disso/data/lsoapop.xlsx", sheet = 4) %>%
+  select(-c(3:6, 8:98)) %>%
+  slice(5:34757) %>%
+  rename(code = "Contents") %>%
+  rename(lsoa = "...2") %>%
+  rename(pop = "...7")
+
+#adds pop of each lsoa 
+imd_missing_grouped <- merge(imd_missing_grouped, lsoapop, all.x = TRUE)
+
+
+#skeleton data 
+#Set up skeleton dataframe with dates
+LSOAcodes <- unique(imd_missing_grouped$lsoa)
+min <- min(imd_missing_grouped$incident_date_time)
+max <- max(imd_missing_grouped$incident_date_time)
+
+skeleton <- data.frame(code=rep(LSOAcodes, each=(max-min+1), times=1), incident_date_time=rep(seq.Date(from=min, to=max, by="day"), each=1, times=length(LSOAcodes)))
+
+#Map data onto skeleton
+fulldata <- left_join(skeleton, imd_missing_grouped[,c(20:26)], by=c("code", "incident_date_time"), all.x=TRUE, all.y=TRUE)
+
+#Fill in blank days
+fulldata$count <- ifelse(is.na(fulldata$count), 0, fulldata$count)
+
+imd_missing <- imd_missing %>%
+  group_by(code) %>%
+  mutate(count=cumsum(count))
+
+##calculate rates by LSOA
+imd_missing$mp_rate <- imd_missing$incident_type*1000/incident_date_time$pop
+
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
