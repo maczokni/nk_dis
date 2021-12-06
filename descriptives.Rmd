@@ -1,0 +1,924 @@
+---
+title: "police response"
+author: "Nads"
+date: "05/07/2021"
+output: word_document
+---
+
+## clean and prep
+
+```{r load_data, include=FALSE}
+knitr::opts_chunk$set(cache = TRUE, echo = FALSE, include = TRUE)
+
+library(dplyr)
+library(readr)
+library(janitor)
+library(ggplot2)
+library(tidyverse)
+library(lubridate)
+library(readxl)
+library(tsibble)
+library(forecast)
+library(sf)
+library(ggspatial)
+library(ggmap)
+#library(vingettes)
+
+## datasets
+
+calls <- read_csv("Z:\\n8_data_v2.csv.gz") %>% clean_names()
+missing <- subset(calls, incident_type == "Missing Person")
+#missing <- subset(missing, select = -c(4, 6, 9, 10, 15))
+
+ #add lsoa 
+name_code <- read_csv("data/Lower_Layer_Super_Output_Areas_December_2011_Names_and_Codes_in_England_and_Wales.csv") %>%
+  clean_names() %>%
+  select(lsoa11cd, lsoa11nm)
+missing <- left_join(missing, name_code, by = c("lsoa" = "lsoa11nm"))
+
+#lsoa shapefile 
+shp <- "~/PostGrad/SEM 2/DISSO/disso/data/england_lsoa_2011.shp" #4 main LAs in england
+england_lsoa <- st_read(shp)
+
+england_lsoa <- st_transform(england_lsoa, 4326)
+
+
+
+## final classification -----------------------------------------------------------------------------------
+missing <- missing %>% 
+  mutate(
+    final_class = case_when(
+      final_classification_description_1 %in% c(
+        "Missing Person", 
+        "MISSING PERSON"
+      ) ~ "Missing Person",
+      final_classification_description_1 %in% c(
+        "Absent Person", 
+        "ABSENT PERSON"
+      ) ~ "Absent Person",
+      final_classification_description_1 %in% minor_cat ~ "Other",
+      TRUE ~ final_classification_description_1
+    ))
+
+minor_cat <- missing %>%  
+  #get rid of those not classed as missing or abondened
+  count(final_classification_description_1) %>% 
+  filter(n < 1136) %>%
+  pull(final_classification_description_1)
+
+missing %>% group_by(final_class) %>% count() %>% View()
+
+
+
+## origin -------------------------------------------------------------------------
+missing %>% group_by(call_origin) %>% count() %>% View()
+
+#minor_categories2 <- missing %>% 
+  #count(call_origin) %>% 
+  #filter(n < 20) %>%   # basially ANPR, alaram company, single online home and social media
+  #pull(call_origin)
+      
+missing <- missing %>% 
+  mutate(
+    call_origin = case_when(
+      call_origin %in% c(
+        "Alarm Company", 
+        "Email (to Public Contact Mailbox)",
+        "Helpdesk",
+        "Public Non Emergency (inc. Door Phones and PCPs)",
+        "Single Online Home",
+        "ANPR",
+        "Social Media"
+      ) ~ "Public Non-Emergency",
+      call_origin == "Other Emergency Services (inc. Other Forces)" ~
+        "Other Emergency Services",
+      call_origin == "Police Generated (inc. Call Sign / Collar Numbers)" ~
+        "Police Generated",
+      #call_origin %in% minor_categories2 ~ "other",
+      call_origin == "Unknown" | is.na(call_origin) ~ 
+        NA_character_,
+      TRUE ~ call_origin
+    ))
+
+  
+## Grade change -------------------------------------------------------------
+
+missing <- missing %>% 
+  mutate(initial_grade_of_response = str_remove_all(initial_grade_of_response, "Grade"))
+missing <- missing %>% 
+  mutate(current_response_grade = str_remove_all(current_response_grade, "Grade"))
+missing <- missing %>%
+  mutate("Grade_Change" = ifelse(initial_grade_of_response == current_response_grade, "True", "False"))
+
+  
+
+# Attended -----------------------------------------------------------------
+missing$attended <- case_when(missing$attended_flag == 1 ~ "Yes", 
+                             missing$attended_flag == 0 ~ "No", 
+                             TRUE ~ NA_character_)
+
+# filter attended only 
+#attended_missing <- missing %>% filter(attended == "Yes")
+
+
+
+
+
+
+## ------------------------------------------------------------
+#use on those in the four LA, reduce from 42547 to 42019
+des <- left_join(england_lsoa, missing, by = c("code"="lsoa11cd")) 
+
+
+```
+
+
+
+
+
+## univariate/bivariate - police response 
+
+
+```{r univariate}
+
+# 1 - call orign 
+print(levels(des$call_origin))
+table(des$call_origin)
+des$call_origin <- ordered(des$call_origin, 
+                          levels = c('Public Non-Emergency', '999', 'Other Emergency Services', 'Police Generated'))
+
+ggplot(subset(des, !is.na(call_origin)), aes(x=call_origin, fill = call_origin)) +
+  geom_bar(mapping = aes(y = ..prop.., group = 1, color = call_origin)) + 
+  ggtitle("Proporiton of Missing Incidents by Call Origin") + labs(x = "Call Origin", y = "Proporiton")
+
+
+# 2 - current grade
+ggplot(subset(des, !is.na(current_response_grade)), aes(x=current_response_grade, fill = current_response_grade)) +
+  geom_bar(mapping = aes(y = ..prop.., group = 1)) +
+  ggtitle("Proporiton of Missing Incidents by Current Grade")+ labs(x = "Current Grade", y = "Proporiton")
+
+# 2b - inital grade
+missing %>% group_by(current_response_grade) %>% count() %>% View()
+ggplot(subset(des, !is.na(initial_grade_of_response)), aes(x=initial_grade_of_response, fill = initial_grade_of_response)) +
+  geom_bar(mapping = aes(y = ..prop.., group = 1))  + 
+  ggtitle("Proporiton of Missing Incidents by Initial Grade")+ labs(x = "Initial Grade", y = "Proporiton")
+
+
+
+# 3 - grade change 
+ggplot(subset(des, !is.na(Grade_Change)), aes(x=Grade_Change, fill = Grade_Change)) +
+  geom_bar(mapping = aes(y = ..prop.., group = 1))  + 
+  ggtitle("Proporiton of Missing Incidents by Whether Grade Changed")+ labs(x = "Grade Change", y = "Proporiton")
+
+
+
+# 4 -final class
+des$final_class <- ordered(des$final_class, 
+                          levels = c('Missing Person', 'Absent Person', 'Other'))
+ggplot(subset(des, !is.na(final_class)), aes(x=final_class, fill = final_class)) +
+  geom_bar(mapping = aes(y = ..prop.., group = 1))  + 
+  ggtitle("Proporiton of Missing Incidents by Final Classifcation") + labs(x = "Final Classification", y = "Proporiton")
+
+
+# 5 - Attended
+ggplot(subset(des, !is.na(attended)), aes(x=attended, fill = attended)) +
+  geom_bar(mapping = aes(y = ..prop.., group = 1))  + 
+  ggtitle("Proporiton of Missing Incidents by Attendence") + labs(x = "Attended or Not", y = "Proporiton")
+
+
+
+
+## how do missing incidents get raised by the police?
+## what are the grades these are given 
+## what are final classification these are given 
+## what are the proportion of these that change grade
+
+```
+
+
+
+
+
+```{r bivariate }
+
+#CALL ORIGIN 
+
+## 1)  call origin and grade
+bcs_bar <-filter(des, !is.na(call_origin), !is.na(current_response_grade))
+p <- ggplot(data=bcs_bar, aes(x=call_origin, fill=current_response_grade)) + geom_bar(position = "dodge",
+             mapping = aes(y = ..prop.., group = current_response_grade)) +
+  ggtitle("Relationship between Call Origin and Current Grade") + labs(x = "Call Origin", y = "Proportion", fill = "Current Grade", 
+      subtitle = "With χ2 Test of Statistical Siginifcance",
+      caption = "χ2 = 33886.115 ,  df = 12,  p = 0,  MEF = 0.55,
+      Fisher Test P: 0.0005") 
+p + coord_flip()
+
+##test of statistical signifcance = chi 
+## strength of association = gamma 
+library(gmodels)
+with(des, CrossTable(current_response_grade, call_origin, expected = TRUE, prop.chisq=FALSE, prop.c=FALSE, prop.t=FALSE, format=c("SPSS")))
+
+#i.e. 37% of calls graded at 1 were received by PNE, whereas 88% of calls graded at 5 were received by PNE
+#i.e. 58% of calls graded at 1 were received by 999, whereas 9.71% of calls graded at 5 were received by 999
+#i.e. 2.84% of calls graded at 1 were received by ose, whereas 1.94% of calls graded at 5 were received by ose
+#i.e. 0.51% of calls graded at 1 were received by pg, whereas 0% of calls graded at 5 were received by pg
+
+#due to small cell counts in the chi square, we can use fisher tes
+fisher.test(des$current_response_grade, des$call_origin, simulate.p.value = TRUE, hybrid = TRUE)
+
+
+##or 
+ggplot(data = des, aes(x = call_origin, fill=current_response_grade)) + 
+  geom_bar(position ="fill") + ggtitle("Relationship between Call Origin and Current Grade") + 
+  labs(x = "Call Origin", y = "Proportion", fill = "Current Grade", 
+      subtitle = "With χ2 Test of Statistical Siginifcance",
+      caption = "χ2 = 33886.115 ,  df = 12,  p = 0,  MEF = 0.55,
+      Fisher Test P: 0.0005") 
+
+
+
+
+
+## 2) call origin and final_classification
+bcs_bar <-filter(des, !is.na(call_origin), !is.na(final_class))
+p <- ggplot(data=bcs_bar, aes(x=call_origin, fill=final_class)) + geom_bar(position = "dodge",
+             mapping = aes(y = ..prop.., group =final_class)) +
+  ggtitle("Relationship between Call Origin and Final Classifcation") + labs(x = "Call Origin", y = "Proportion", fill = "Final Classification", 
+      subtitle = "With χ2 Test of Statistical Siginifcance",
+      caption = "χ2 = 433.91 ,  df = 8,  p = 1.035703e-88,  MEF = 11.88")
+p + coord_flip()
+
+with(des, CrossTable(final_class, call_origin, expected = TRUE, prop.chisq=FALSE, prop.c=FALSE, prop.t=FALSE, format=c("SPSS")))
+
+
+
+
+## 3) call origin and attended 
+bcs_bar <-filter(des, !is.na(call_origin), !is.na(attended))
+p <- ggplot(data=bcs_bar, aes(x=call_origin, fill=attended)) + geom_bar(position = "dodge",
+             mapping = aes(y = ..prop.., group =attended)) +
+  ggtitle("Relationship between Call Origin and Attendence") + labs(x = "Call Origin", y = "Proportion", fill = "Attended", 
+      subtitle = "With χ2 Test of Statistical Siginifcance",
+      caption = "χ2 = 1310.631 ,  df = 2,  p = 2.512614e-285 ,  MEF = 803.36")
+p + coord_flip()
+
+with(des, CrossTable(final_class, attended, expected = TRUE, prop.chisq=FALSE, prop.c=FALSE, prop.t=FALSE, format=c("SPSS")))
+
+
+
+
+## 4) call origin and grade change 
+bcs_bar <-filter(des, !is.na(call_origin), !is.na(Grade_Change))
+p <- ggplot(data=bcs_bar, aes(x=call_origin, fill=Grade_Change)) + geom_bar(position = "dodge",
+             mapping = aes(y = ..prop.., group =Grade_Change)) +
+  ggtitle("Relationship between Call Origin and Grade Change") + labs(x = "Call Origin", y = "Proportion", fill = "Grade Change", 
+      subtitle = "With χ2 Test of Statistical Siginifcance",
+      caption = "χ2 = 1065.219 ,  df = 2,  p = 4.905846e-232 ,  MEF = 721.022 ")
+p + coord_flip()
+
+with(des, CrossTable(final_class, Grade_Change, expected = TRUE, prop.chisq=FALSE, prop.c=FALSE, prop.t=FALSE, format=c("SPSS")))
+
+
+###
+
+## 5) final class and current grade 
+bcs_bar <-filter(des, !is.na(final_class), !is.na(current_response_grade))
+p <- ggplot(data=bcs_bar, aes(x=final_class, fill=current_response_grade)) + geom_bar(position = "dodge",
+             mapping = aes(y = ..prop.., group = current_response_grade)) + 
+  ggtitle("Relationship between Current Grade and Final Classifcation") + labs(x = "Final Classification", y = "Proportion", fill = "Current Grade", 
+      subtitle = "With χ2 Test of Statistical Siginifcance",
+      caption = "χ2 = 3214.7,  df= 8,  P = 0.0005")
+p + coord_flip()
+
+with(des, CrossTable(final_class, current_response_grade, expected = TRUE, prop.chisq=FALSE, prop.c=FALSE, prop.t=FALSE, format=c("SPSS")))
+
+mytable.1 <- table(des$current_response_grade, des$final_class)
+chisq.test(mytable.1, simulate.p.value = TRUE)
+
+
+
+## 6) grade and grade change 
+bcs_bar <-filter(des, !is.na(current_response_grade), !is.na(Grade_Change))
+p <- ggplot(data=bcs_bar, aes(x=current_response_grade , fill=Grade_Change)) + geom_bar(position = "dodge",
+             mapping = aes(y = ..prop.., group =Grade_Change)) +
+  ggtitle("Relationship between Call Origin and Grade Change") + labs(x = "Call Origin", y = "Proportion", fill = "Grade Change", 
+      subtitle = "With χ2 Test of Statistical Siginifcance",
+      caption = "χ2 = 24009, p = 0.0005,")
+p + coord_flip()
+
+mytable.1 <- table(des$current_response_grade, des$Grade_Change)
+chisq.test(mytable.1, simulate.p.value = TRUE)
+
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Changes over time 
+
+
+## Call Origin 
+
+```{r}
+#yearly proportion of call_origin
+year <- format(as.Date(missing$incident_date_time, format="%d/%m/%Y"),"%Y")
+
+calls_bar <-filter(missing, !is.na(year), !is.na(call_origin))
+calls_bar <- ggplot(data=missing, aes(x=year, fill=call_origin)) + geom_bar(position = "dodge",
+             mapping = aes(y = ..prop.., group = call_origin)) + 
+  ggtitle("Yearly Proportion of Call Origin")
+calls_bar + coord_flip()
+
+
+# weekly proportion 
+
+missing %>% 
+  filter(!is.na(call_origin)) %>% 
+  mutate(week = as_date(yearweek(incident_date_time))) %>% 
+  count(call_origin, week) %>% 
+  mutate(call_origin = fct_reorder(call_origin, n)) %>% 
+  ggplot(aes(x = week, y = n, fill = call_origin)) +
+  geom_area(position = "fill") +
+  # add change to system + new hmic changes
+  #geom_vline(xintercept = as.Date("2017-06-03"), linetype = "33") +
+  #geom_vline(xintercept = as.Date("2017-05-15"), linetype = "33") +
+     # First UK case
+    geom_vline(xintercept = as.Date("2020-01-23"), linetype = "42") +
+    # First UK lockdown begins
+    geom_vline(xintercept = as.Date("2020-03-23"), linetype = "33") +
+    # First UK lockdown ends
+    geom_vline(xintercept = as.Date("2020-06-01"), linetype = "12") +
+  scale_x_date(date_breaks = "6 months", date_labels = "%b\n%Y", expand = c(0, 0)) +
+  scale_y_continuous(labels = scales::percent_format()) +
+  scale_fill_brewer(type = "qual") + 
+  labs(
+    title = "Monthly Proportion of Missing Incidents Across Call Origin",
+    x = NULL,
+    y = "Monthly Proportion",
+    fill = "Call Origin", 
+    subtitle = "1: First UK Case, 2: First UK Lockdown, 3: First UK Lockdown Ends"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "bottom") + 
+  guides(fill=guide_legend(nrow=2,byrow=TRUE)) 
+
+
+
+
+```
+
+
+
+
+
+
+
+
+
+
+## Current Grading 
+
+
+```{r}
+## current 
+
+missing %>%
+  filter(!is.na(current_response_grade)) %>% 
+  mutate(week = as_date(yearweek(incident_date_time))) %>% 
+  count(current_response_grade, week) %>% 
+  mutate(current_response_grade = fct_reorder(current_response_grade, n)) %>% 
+  ggplot(aes(x = week, y = n, fill = current_response_grade)) +
+           geom_area(position = "fill") +
+     # First UK case
+    geom_vline(xintercept = as.Date("2020-01-23"), linetype = "42") +
+    # First UK lockdown begins
+    geom_vline(xintercept = as.Date("2020-03-23"), linetype = "33") +
+    # First UK lockdown ends
+    geom_vline(xintercept = as.Date("2020-06-01"), linetype = "12") +
+           scale_x_date(date_breaks = "6 months", date_labels = "%b\n%Y", expand = c(0, 0)) +
+           scale_y_continuous(labels = scales::percent_format()) +
+           scale_fill_brewer(type = "qual") + 
+           labs(
+             title = "Monthly Propotion of Missing Incidents Across Current Grades",
+             x = NULL,
+             y = "Monthly Proportion",
+             fill = "Current Grade", 
+             subtitle = "1: First UK Case, 2: First UK Lockdown, 3: First UK Lockdown Ends"
+           ) +
+           theme_minimal() +
+           theme(legend.position = "bottom") +    
+           guides(fill=guide_legend(nrow=2,byrow=TRUE))
+
+
+
+```
+
+
+
+
+
+
+
+## Whether grade changed 
+
+```{r}
+p <- missing %>%
+  filter(!is.na(Grade_Change)) %>% 
+  mutate(week = as_date(yearweek(incident_date_time))) %>% 
+  count(Grade_Change, week) %>% 
+  mutate(Grade_Change = fct_reorder(Grade_Change, n,)) %>% 
+  ggplot(aes(x = week, y = n, fill = Grade_Change)) +
+           geom_area(position = "fill") +
+     # First UK case
+    geom_vline(xintercept = as.Date("2020-01-23"), linetype = "42") +
+    # First UK lockdown begins
+    geom_vline(xintercept = as.Date("2020-03-23"), linetype = "33") +
+    # First UK lockdown ends
+    geom_vline(xintercept = as.Date("2020-06-01"), linetype = "12") +
+           scale_x_date(date_breaks = "6 months", date_labels = "%b\n%Y", expand = c(0, 0)) +
+           scale_y_continuous(labels = scales::percent_format()) +
+           scale_fill_brewer(type = "qual") + 
+           labs(
+             title = "Monthly Propotion of Missing Incidents Across Grade Change",
+             x = NULL,
+             y = "Monthly Proportion",
+             fill = "Grade Change", 
+             subtitle = "1: First UK Case, 2: First UK Lockdown, 3: First UK Lockdown Ends"
+           ) +
+           theme_minimal() +
+           theme(legend.position = "bottom") +    
+           guides(fill=guide_legend(nrow=2,byrow=TRUE))
+p + scale_color_brewer(palette = "PuOr")
+
+
+```
+
+
+Majority of grading does change - why?
+
+
+
+
+## Final Class
+
+
+```{r}
+
+missing %>%
+  filter(!is.na(final_class)) %>% 
+  mutate(week = as_date(yearweek(incident_date_time))) %>% 
+  count(final_class, week) %>% 
+  mutate(final_class = fct_reorder(final_class, n)) %>% 
+  ggplot(aes(x = week, y = n, fill = final_class)) +
+  geom_area(position = "fill") +
+    # add change to system + new hmic changes
+    geom_vline(xintercept = as.Date("2017-06-03"), linetype = "12") +
+    geom_vline(xintercept = as.Date("2017-05-15"), linetype = "12") +
+   # First UK case
+    geom_vline(xintercept = as.Date("2020-01-23"), linetype = "42") +
+    # First UK lockdown begins
+    geom_vline(xintercept = as.Date("2020-03-23"), linetype = "33") +
+    # First UK lockdown ends
+    geom_vline(xintercept = as.Date("2020-06-01"), linetype = "12") +
+  scale_x_date(date_breaks = "6 months", date_labels = "%b\n%Y", expand = c(0, 0)) +
+  scale_y_continuous(labels = scales::percent_format()) +
+  scale_fill_brewer(type = "qual") + 
+  labs(
+    title = "Monthly Proportion of Missing Incidents Among Final Classification",
+    x = NULL,
+    y = "Monthly Proporiton",
+    fill = "Classification", 
+    subtitle = "1: new call-handling system, 2: changes to practice following HMIC call-handling report
+                3: First UK Case, 4: First UK Lockdown, 5: First UK Lockdown Ends"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "bottom") +
+  guides(fill=guide_legend(nrow=2,byrow=TRUE))
+
+
+
+
+```
+
+
+
+
+
+
+
+
+#grades across attended or not
+
+
+```{r}
+
+#attended variabe 
+missing$attended <- case_when(missing$attended_flag == 1 ~ "Yes", 
+                             missing$attended_flag == 0 ~ "No", 
+                             TRUE ~ NA_character_)
+
+# filter attended only 
+attended_missing <- missing %>% filter(attended == "Yes") #27472 calls attended out of 42547 (54.57)
+
+
+attended_missing%>%
+  filter(!is.na(current_response_grade)) %>% 
+  mutate(week = as_date(yearweek(incident_date_time))) %>% 
+  count(current_response_grade, week) %>% 
+  mutate(current_response_grade = fct_reorder(current_response_grade, n)) %>% 
+  ggplot(aes(x = week, y = n, fill = current_response_grade)) +
+           geom_area(position = "fill") +
+     # First UK case
+    geom_vline(xintercept = as.Date("2020-01-23"), linetype = "42") +
+    # First UK lockdown begins
+    geom_vline(xintercept = as.Date("2020-03-23"), linetype = "33") +
+    # First UK lockdown ends
+    geom_vline(xintercept = as.Date("2020-06-01"), linetype = "12") +
+           scale_x_date(date_breaks = "6 months", date_labels = "%b\n%Y", expand = c(0, 0)) +
+           scale_y_continuous(labels = scales::percent_format()) +
+           scale_fill_brewer(type = "qual") + 
+           labs(
+             title = "Monthly Propotion of Missing Incidents, Between Grade Change",
+             x = NULL,
+             y = "Monthly Proportion",
+             fill = "Attended or Not", 
+             subtitle = "1: First UK Case, 2: First UK Lockdown, 3: First UK Lockdown Ends"
+           ) +
+           theme_minimal() +
+           theme(legend.position = "bottom") +    
+           guides(fill=guide_legend(nrow=2,byrow=TRUE))
+  facet_wrap(~current_response_grade)
+
+
+
+```
+
+
+
+
+
+
+
+
+## Median response Time
+
+```{r}
+
+#response time variable 
+attended_missing$response_time <- as.period(ymd_hms(attended_missing$earliest_arrived_date_time) -                      ymd_hms(attended_missing$earliest_deployed_date_time))
+
+attended_missing$response_time_mins <- time_length(attended_missing$response_time, unit = "minute")
+#add 12 hours to the negative time ones
+attended_missing$response_time_mins <- ifelse(attended_missing$response_time_mins <0, 
+                            attended_missing$response_time_mins + 720, attended_missing$response_time_mins)
+
+summary(attended_missing$response_time_mins) #1177 
+
+# count the median response time for each week in total first
+median_response_time <- attended_missing %>% 
+  mutate(incident_week = yearweek(incident_date_time)) %>% 
+  group_by(incident_week) %>%
+  summarise(median_resp_time = median(response_time_mins, na.rm = TRUE))
+
+summary(median_response_time$median_resp_time) # average median response time for each week is 28 mins 
+
+
+#convert to a tsibble object
+median_response_time <- median_response_time %>% 
+  #mutate(week = yearweek(incident_week)) %>%
+  #group_by(incident_week) %>%
+  #summarise(median_resp_time = median(response_time_mins, na.rm = TRUE)) %>%
+  slice(2:(n() - 1)) %>% # remove first and last row
+  as_tsibble(index = incident_week) %>% 
+  fill_gaps(median_resp_time = NA) %>% 
+  #Add dummy variables
+  mutate(
+    # Dummy for change from old to new call-handling system
+    new_system = incident_week > yearweek(ymd("2017-06-03")),
+    # Dummy for changes in practice after adverse HMIC call-handling report
+    hmic_changes = incident_week > yearweek(ymd("2017-05-15")), 
+    # Dummy for bank holiday 
+    bank_holiday = incident_week %in% yearweek(as_date(timeDate::holidayLONDON(year = 2015:2020))))
+
+
+###  plot median response time 
+median_response_time %>%
+  ggplot(aes(x = incident_week, y = median_resp_time)) +
+  geom_point(alpha=.4) + 
+  # First UK case
+    geom_vline(xintercept = as.Date("2020-01-23"), linetype = "42") +
+    # First UK lockdown begins
+    geom_vline(xintercept = as.Date("2020-03-23"), linetype = "33") +
+    # First UK lockdown ends
+    geom_vline(xintercept = as.Date("2020-06-01"), linetype = "12") +
+  ggtitle("Changes in Median Response Time")
+
+
+median_response_time %>%
+  ggplot(aes(x = incident_week, y = median_resp_time)) +
+           geom_point() +
+           ggtitle("Changes in Median Response Time") +
+           xlab("Weeks") + ylab("Median Response Time") +
+           theme(plot.title = element_text(lineheight=.8, face="bold",
+                 size = 20)) +
+           theme(text = element_text(size=18))
+
+
+```
+
+
+
+
+
+
+
+#response time across grades 
+
+```{r}
+#create response time variable
+attended_missing$response_time <- as.period(ymd_hms(attended_missing$earliest_arrived_date_time) -                      ymd_hms(attended_missing$earliest_deployed_date_time))
+
+attended_missing$response_time_mins <- time_length(attended_missing$response_time, unit = "minute")
+#add 12 hours to the negative time ones
+attended_missing$response_time_mins <- ifelse(attended_missing$response_time_mins <0, 
+                            attended_missing$response_time_mins + 720, attended_missing$response_time_mins)
+
+summary(attended_missing$response_time_mins) 
+
+#separate grades for response time and for attended 
+
+# count the median response time for each week in total first and for each grade
+median_response_time <- attended_missing %>% 
+  mutate(incident_week = yearweek(incident_date_time)) %>% 
+  group_by(current_response_grade, incident_week) %>%
+  summarise(median_resp_time = median(response_time_mins, na.rm = TRUE))
+
+summary(median_response_time$median_resp_time) #41 NA
+
+
+
+
+#convert to tsiblle 
+median_response_time <- median_response_time %>% 
+  slice(2:(n() - 1)) %>% # remove first and last row
+  as_tsibble(index = incident_week, current_response_grade) %>% 
+  fill_gaps(median_resp_time = NA)  
+  #Add dummy variables
+  #mutate(
+    # Dummy for change from old to new call-handling system
+    #new_system = incident_week > yearweek(ymd("2017-06-03")),
+    # Dummy for changes in practice after adverse HMIC call-handling report
+   # hmic_changes = incident_week > yearweek(ymd("2017-05-15")), 
+    # Dummy for bank holiday 
+    #bank_holiday = incident_week %in% yearweek(as_date(timeDate::holidayLONDON(year = 2015:2020))))
+
+
+
+median_response_time %>%
+  ggplot(aes(x = incident_week, y = median_resp_time)) +
+           geom_point(color = "indianred3", 
+            size=1) +
+  scale_y_continuous(limits = c(0, 2800), labels = scales::comma_format()) +
+  geom_smooth() +
+           ggtitle("Changes in Median Response Time Across Grade") +
+           xlab("Weeks") + ylab("Median Response Time") +
+           theme(plot.title = element_text(lineheight=.8, face="bold",
+                 size = 20)) +
+           theme(text = element_text(size=18))
+
+#no grade 5s from 2018-20220
+
+table(median_response_time$current_response_grade)
+
+
+x <- median_response_time %>%
+  filter(!is.na(current_response_grade == "Grade 5")) %>%
+  summarise(median_resp_time, na.rm = TRUE)
+
+
+
+g1 <- median_response_time %>%
+  filter(current_response_grade == "Grade 1", na.rm = TRUE) %>%
+  ggplot(aes(x = incident_week, y = median_resp_time )) +
+           geom_point(color = "indianred3", 
+            size=1) +
+  scale_y_continuous(limits = c(0, 50), labels = scales::comma_format()) +  #max 42
+  geom_smooth() +
+           ggtitle("Grade 1", 
+                   subtitle = "Max = 42,44") +
+           xlab("Weeks") + ylab("Median Response Time") +
+           theme(plot.title = element_text(lineheight=.8, face="bold",
+                 size = 10)) +
+           theme(text = element_text(size=7))
+g1
+
+
+g2 <- median_response_time %>%
+  filter(current_response_grade == "Grade 2") %>%
+  ggplot(aes(x = incident_week, y = median_resp_time )) +
+           geom_point(color = "indianred3", 
+            size=1) +
+  scale_y_continuous(limits = c(0, 70), labels = scales::comma_format()) +  #max 66.94
+  geom_smooth() +
+           ggtitle("Grade 2", 
+                   subtitle = "Max = 66.94") +
+           xlab("Weeks") + ylab("Median Response Time") +
+           theme(plot.title = element_text(lineheight=.8, face="bold",
+                 size = 10)) +
+           theme(text = element_text(size=7))
+g2
+
+
+g3 <- median_response_time %>%
+  filter(!is.na(current_response_grade == "Grade 3")) %>%
+  slice(2:(n() - 1)) %>%
+  ggplot(aes(x = incident_week, y = median_resp_time )) +
+           geom_point(color = "indianred3", 
+            size=1) +
+  scale_y_continuous(limits = c(0, 1250), labels = scales::comma_format()) +  #max 1249
+  geom_smooth() +
+           ggtitle("Grade 3", 
+                   subtitle = "Max = 1249.12") +
+           xlab("Weeks") + ylab("Median Response Time") +
+           theme(plot.title = element_text(lineheight=.8, face="bold",
+                 size = 10)) +
+           theme(text = element_text(size=7))
+g3
+
+
+
+g4 <- median_response_time %>%
+  filter(current_response_grade == "Grade 4") %>%
+  slice(2:(n() - 1)) %>%
+  ggplot(aes(x = incident_week, y = median_resp_time )) +
+           geom_point(color = "indianred3", 
+            size=1) +
+  scale_y_continuous(limits = c(0, 1800), labels = scales::comma_format()) +  #max 1747.33
+  geom_smooth() +
+           ggtitle("Grade 4", 
+                   subtitle = "Max = 1747.33") +
+           xlab("Weeks") + ylab("Median Response Time") +
+           theme(plot.title = element_text(lineheight=.8, face="bold",
+                 size = 10)) +
+           theme(text = element_text(size=7))
+g4
+
+
+
+
+
+
+library(cowplot)
+
+
+p <- plot_grid(g1, g2, g3, g4)
+
+title <- ggdraw() + draw_label("Changes in Median Response Time Across Grade", fontface='bold')
+
+plot_grid(title, p, ncol=1, rel_heights=c(0.8, 9))
+
+
+```
+
+
+
+
+
+
+
+
+##  response time over covid 
+
+
+```{r}
+#attended
+covid$attended <- case_when(covid$attended_flag == 1 ~ "Yes", 
+                             covid$attended_flag == 0 ~ "No", 
+                             TRUE ~ NA_character_)
+
+# filter attended only 
+attended_missing <- covid %>% filter(attended == "Yes")
+
+
+#response time variable 
+attended_missing$response_time <- as.period(ymd_hms(attended_missing$earliest_arrived_date_time) - ymd_hms(attended_missing$earliest_deployed_date_time))
+
+attended_missing$response_time_mins <- time_length(attended_missing$response_time, unit = "minute")
+#add 12 hours to the negative time ones
+attended_missing$response_time_mins <- ifelse(attended_missing$response_time_mins <0, 
+                            attended_missing$response_time_mins + 720, attended_missing$response_time_mins)
+
+summary(attended_missing$response_time_mins) #2
+
+# count the median response time for each week in total first
+median_response_time <- attended_missing %>% 
+  mutate(incident_week = yearweek(incident_date_time)) %>% 
+  group_by(incident_week) %>%
+  summarise(median_resp_time = median(response_time_mins, na.rm = TRUE))
+
+summary(median_response_time$median_resp_time) # average median response time for each week is 28 mins 
+
+
+#convert to a tsibble object
+median_response_time <- median_response_time %>% 
+  #mutate(week = yearweek(incident_week)) %>%
+  #group_by(incident_week) %>%
+  #summarise(median_resp_time = median(response_time_mins, na.rm = TRUE)) %>%
+  slice(2:(n() - 1)) %>% # remove first and last row
+  as_tsibble(index = incident_week) %>% 
+  fill_gaps(median_resp_time = NA) %>% 
+  #Add dummy variables
+  mutate(
+    # Dummy for change from old to new call-handling system
+    new_system = incident_week > yearweek(ymd("2017-06-03")),
+    # Dummy for changes in practice after adverse HMIC call-handling report
+    hmic_changes = incident_week > yearweek(ymd("2017-05-15")), 
+    # Dummy for bank holiday 
+    bank_holiday = incident_week %in% yearweek(as_date(timeDate::holidayLONDON(year = 2015:2020))))
+
+
+###  plot median response time 
+median_response_time %>%
+  ggplot(aes(x = incident_week, y = median_resp_time)) +
+  geom_point(alpha=.4) + 
+  # First UK case
+    geom_vline(xintercept = as.Date("2020-01-23"), linetype = "42") +
+    # First UK lockdown begins
+    geom_vline(xintercept = as.Date("2020-03-23"), linetype = "33") +
+    # First UK lockdown ends
+    geom_vline(xintercept = as.Date("2020-06-01"), linetype = "12") +
+  ggtitle("Changes in Median Response Time")
+
+
+median_response_time %>%
+  ggplot(aes(x = incident_week, y = median_resp_time)) +
+           geom_point() +
+           ggtitle("Changes in Median Response Time") +
+           xlab("Weeks") + ylab("Median Response Time") +
+           theme(plot.title = element_text(lineheight=.8, face="bold",
+                 size = 20)) +
+           theme(text = element_text(size=18))
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
