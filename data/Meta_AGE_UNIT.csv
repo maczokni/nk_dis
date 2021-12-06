@@ -1,0 +1,1342 @@
+CDU_FIELD_NAME,CENSUS_CELLNAME,TOPIC,CATEGORY,TOPIC_DESCRIPTION,
+F130016,KS201UK0001,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F130016,KS201UK0001,Ethnic group (UK harmonised),Total\ Ethnic Group UK,"Ethnic group classifies people according to their own perceived ethnic group and cultural background.
+<br/>
+Due to question and response category differences in the country-specific ethnic group question asked in the 2011 Censuses of the UK, some responses are not directly comparable. The UK output on ethnic group is therefore presented using a high-level classification as recommended by the ONS '<a href="http://webarchive.nationalarchives.gov.uk/20160105160709/http://www.ons.gov.uk/ons/guide-method/harmonisation/primary-set-of-harmonised-concepts-and-questions/index.html" target="_blank">Primary Standards for Harmonised Concepts and Questions for Social Data sources</a>'.
+<br/>
+The correspondence between the country specific ethnic group categories onto the UK classification is shown in the table below:
+<br/>
+<table border="1" cellspacing="0" cellpadding="2">
+ <tr bgcolor="#D9D9D9">
+  <th><font color="#0000FF">UK Output Classification<br/>(KS201UK)</font></th>
+  <th>England and Wales Classification<br/>(KS201EW)</th>
+  <th>Scotland Classification<br/>(KS201SC)</th>
+  <th>Northern Ireland Classification<br/>(KS201NI)</th>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">White</font></td>
+  <td>  White: English/Welsh/Scottish/Northern&nbsp;Irish/British<br/>
+	White: Irish<br/>
+	White: Other White</td>
+  <td>  White: Scottish<br/>
+	White: Other British<br/>
+	White: Irish<br/>
+	White: Polish<br/>
+	White: Other White</td>
+  <td>	White</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Gypsy/Traveller/Irish&nbsp;Traveller</font></td>
+  <td>White: Gypsy or Irish Traveller</td>
+  <td>White: Gypsy/Traveller</td>
+  <td>Irish Traveller</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Mixed/Multiple Ethnic Groups</font></td>
+  <td>	Mixed/multiple ethnic group: White and Black<br/>
+	Caribbean Mixed/multiple ethnic group: White and Black African<br/>
+	Mixed/multiple ethnic group: White and Asian<br/>
+	Mixed/multiple ethnic group: Other Mixed</td>
+  <td>Mixed or multiple ethnic groups</td>
+  <td>Mixed</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Indian</font></td>
+  <td>Asian/Asian British: Indian</td>
+  <td>Asian, Asian Scottish or Asian British: Indian, Indian Scottish or Indian British</td>
+  <td>Indian</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Pakistani</font></td>
+  <td>Asian/Asian British: Pakistani</td>
+  <td>Asian, Asian Scottish or Asian British: Pakistani, Pakistani Scottish or Pakistani British</td>
+  <td>Pakistani</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Bangladeshi</font></td>
+  <td>Asian/Asian British: Bangladeshi</td>
+  <td>Asian, Asian Scottish or Asian British: Bangladeshi, Bangladeshi Scottish or Bangladeshi British</td>
+  <td>Bangladeshi</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Chinese</font></td>
+  <td>Asian/Asian British: Chinese</td>
+  <td>Asian, Asian Scottish or Asian British: Chinese, Chinese Scottish or Chinese British</td>
+  <td>Chinese</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Other Asian</font></td>
+  <td>Asian/Asian British: Other Asian</td>
+  <td>Asian, Asian Scottish or Asian British: Other Asian</td>
+  <td>Other Asian</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Black/African/Caribbean/Black British</font></td>
+  <td>	Black/African/Caribbean/Black British: African<br/>
+	Black/African/Caribbean/Black British: Caribbean<br/>
+	Black/African/Caribbean/Black British: Other Black</td>
+  <td>	African: African, African Scottish or African British<br/>
+	African: Other African<br/>
+	Caribbean or Black: Caribbean, Caribbean Scottish or Caribbean British<br/>
+	Caribbean or Black: Black, Black Scottish or Black British<br/>
+	Caribbean or Black: Other Caribbean or Black</td>
+  <td>	Black African<br/>
+	Black Caribbean<br/>
+	Black Other</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Other ethnic group</font></td>
+  <td>	Other ethnic group: Arab<br/>
+	Other ethnic group: Any other ethnic group</td>
+  <td>	Other ethnic groups: Arab, Arab Scottish or Arab British<br/>
+	Other ethnic groups: Other ethnic group</td>
+  <td>Other</td>
+ </tr>
+</table>",
+F130017,KS201UK0002,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F130017,KS201UK0002,Ethnic group (UK harmonised),White,"Ethnic group classifies people according to their own perceived ethnic group and cultural background.
+<br/>
+Due to question and response category differences in the country-specific ethnic group question asked in the 2011 Censuses of the UK, some responses are not directly comparable. The UK output on ethnic group is therefore presented using a high-level classification as recommended by the ONS '<a href="http://webarchive.nationalarchives.gov.uk/20160105160709/http://www.ons.gov.uk/ons/guide-method/harmonisation/primary-set-of-harmonised-concepts-and-questions/index.html" target="_blank">Primary Standards for Harmonised Concepts and Questions for Social Data sources</a>'.
+<br/>
+The correspondence between the country specific ethnic group categories onto the UK classification is shown in the table below:
+<br/>
+<table border="1" cellspacing="0" cellpadding="2">
+ <tr bgcolor="#D9D9D9">
+  <th><font color="#0000FF">UK Output Classification<br/>(KS201UK)</font></th>
+  <th>England and Wales Classification<br/>(KS201EW)</th>
+  <th>Scotland Classification<br/>(KS201SC)</th>
+  <th>Northern Ireland Classification<br/>(KS201NI)</th>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">White</font></td>
+  <td>  White: English/Welsh/Scottish/Northern&nbsp;Irish/British<br/>
+	White: Irish<br/>
+	White: Other White</td>
+  <td>  White: Scottish<br/>
+	White: Other British<br/>
+	White: Irish<br/>
+	White: Polish<br/>
+	White: Other White</td>
+  <td>	White</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Gypsy/Traveller/Irish&nbsp;Traveller</font></td>
+  <td>White: Gypsy or Irish Traveller</td>
+  <td>White: Gypsy/Traveller</td>
+  <td>Irish Traveller</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Mixed/Multiple Ethnic Groups</font></td>
+  <td>	Mixed/multiple ethnic group: White and Black<br/>
+	Caribbean Mixed/multiple ethnic group: White and Black African<br/>
+	Mixed/multiple ethnic group: White and Asian<br/>
+	Mixed/multiple ethnic group: Other Mixed</td>
+  <td>Mixed or multiple ethnic groups</td>
+  <td>Mixed</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Indian</font></td>
+  <td>Asian/Asian British: Indian</td>
+  <td>Asian, Asian Scottish or Asian British: Indian, Indian Scottish or Indian British</td>
+  <td>Indian</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Pakistani</font></td>
+  <td>Asian/Asian British: Pakistani</td>
+  <td>Asian, Asian Scottish or Asian British: Pakistani, Pakistani Scottish or Pakistani British</td>
+  <td>Pakistani</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Bangladeshi</font></td>
+  <td>Asian/Asian British: Bangladeshi</td>
+  <td>Asian, Asian Scottish or Asian British: Bangladeshi, Bangladeshi Scottish or Bangladeshi British</td>
+  <td>Bangladeshi</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Chinese</font></td>
+  <td>Asian/Asian British: Chinese</td>
+  <td>Asian, Asian Scottish or Asian British: Chinese, Chinese Scottish or Chinese British</td>
+  <td>Chinese</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Other Asian</font></td>
+  <td>Asian/Asian British: Other Asian</td>
+  <td>Asian, Asian Scottish or Asian British: Other Asian</td>
+  <td>Other Asian</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Black/African/Caribbean/Black British</font></td>
+  <td>	Black/African/Caribbean/Black British: African<br/>
+	Black/African/Caribbean/Black British: Caribbean<br/>
+	Black/African/Caribbean/Black British: Other Black</td>
+  <td>	African: African, African Scottish or African British<br/>
+	African: Other African<br/>
+	Caribbean or Black: Caribbean, Caribbean Scottish or Caribbean British<br/>
+	Caribbean or Black: Black, Black Scottish or Black British<br/>
+	Caribbean or Black: Other Caribbean or Black</td>
+  <td>	Black African<br/>
+	Black Caribbean<br/>
+	Black Other</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Other ethnic group</font></td>
+  <td>	Other ethnic group: Arab<br/>
+	Other ethnic group: Any other ethnic group</td>
+  <td>	Other ethnic groups: Arab, Arab Scottish or Arab British<br/>
+	Other ethnic groups: Other ethnic group</td>
+  <td>Other</td>
+ </tr>
+</table>",
+F130018,KS201UK0003,Ethnic group (UK harmonised),Gypsy/Traveller/Irish Traveller,"Ethnic group classifies people according to their own perceived ethnic group and cultural background.
+<br/>
+Due to question and response category differences in the country-specific ethnic group question asked in the 2011 Censuses of the UK, some responses are not directly comparable. The UK output on ethnic group is therefore presented using a high-level classification as recommended by the ONS '<a href="http://webarchive.nationalarchives.gov.uk/20160105160709/http://www.ons.gov.uk/ons/guide-method/harmonisation/primary-set-of-harmonised-concepts-and-questions/index.html" target="_blank">Primary Standards for Harmonised Concepts and Questions for Social Data sources</a>'.
+<br/>
+The correspondence between the country specific ethnic group categories onto the UK classification is shown in the table below:
+<br/>
+<table border="1" cellspacing="0" cellpadding="2">
+ <tr bgcolor="#D9D9D9">
+  <th><font color="#0000FF">UK Output Classification<br/>(KS201UK)</font></th>
+  <th>England and Wales Classification<br/>(KS201EW)</th>
+  <th>Scotland Classification<br/>(KS201SC)</th>
+  <th>Northern Ireland Classification<br/>(KS201NI)</th>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">White</font></td>
+  <td>  White: English/Welsh/Scottish/Northern&nbsp;Irish/British<br/>
+	White: Irish<br/>
+	White: Other White</td>
+  <td>  White: Scottish<br/>
+	White: Other British<br/>
+	White: Irish<br/>
+	White: Polish<br/>
+	White: Other White</td>
+  <td>	White</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Gypsy/Traveller/Irish&nbsp;Traveller</font></td>
+  <td>White: Gypsy or Irish Traveller</td>
+  <td>White: Gypsy/Traveller</td>
+  <td>Irish Traveller</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Mixed/Multiple Ethnic Groups</font></td>
+  <td>	Mixed/multiple ethnic group: White and Black<br/>
+	Caribbean Mixed/multiple ethnic group: White and Black African<br/>
+	Mixed/multiple ethnic group: White and Asian<br/>
+	Mixed/multiple ethnic group: Other Mixed</td>
+  <td>Mixed or multiple ethnic groups</td>
+  <td>Mixed</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Indian</font></td>
+  <td>Asian/Asian British: Indian</td>
+  <td>Asian, Asian Scottish or Asian British: Indian, Indian Scottish or Indian British</td>
+  <td>Indian</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Pakistani</font></td>
+  <td>Asian/Asian British: Pakistani</td>
+  <td>Asian, Asian Scottish or Asian British: Pakistani, Pakistani Scottish or Pakistani British</td>
+  <td>Pakistani</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Bangladeshi</font></td>
+  <td>Asian/Asian British: Bangladeshi</td>
+  <td>Asian, Asian Scottish or Asian British: Bangladeshi, Bangladeshi Scottish or Bangladeshi British</td>
+  <td>Bangladeshi</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Chinese</font></td>
+  <td>Asian/Asian British: Chinese</td>
+  <td>Asian, Asian Scottish or Asian British: Chinese, Chinese Scottish or Chinese British</td>
+  <td>Chinese</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Other Asian</font></td>
+  <td>Asian/Asian British: Other Asian</td>
+  <td>Asian, Asian Scottish or Asian British: Other Asian</td>
+  <td>Other Asian</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Black/African/Caribbean/Black British</font></td>
+  <td>	Black/African/Caribbean/Black British: African<br/>
+	Black/African/Caribbean/Black British: Caribbean<br/>
+	Black/African/Caribbean/Black British: Other Black</td>
+  <td>	African: African, African Scottish or African British<br/>
+	African: Other African<br/>
+	Caribbean or Black: Caribbean, Caribbean Scottish or Caribbean British<br/>
+	Caribbean or Black: Black, Black Scottish or Black British<br/>
+	Caribbean or Black: Other Caribbean or Black</td>
+  <td>	Black African<br/>
+	Black Caribbean<br/>
+	Black Other</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Other ethnic group</font></td>
+  <td>	Other ethnic group: Arab<br/>
+	Other ethnic group: Any other ethnic group</td>
+  <td>	Other ethnic groups: Arab, Arab Scottish or Arab British<br/>
+	Other ethnic groups: Other ethnic group</td>
+  <td>Other</td>
+ </tr>
+</table>",
+F130018,KS201UK0003,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F130019,KS201UK0004,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F130019,KS201UK0004,Ethnic group (UK harmonised),Mixed/Multiple Ethnic Groups,"Ethnic group classifies people according to their own perceived ethnic group and cultural background.
+<br/>
+Due to question and response category differences in the country-specific ethnic group question asked in the 2011 Censuses of the UK, some responses are not directly comparable. The UK output on ethnic group is therefore presented using a high-level classification as recommended by the ONS '<a href="http://webarchive.nationalarchives.gov.uk/20160105160709/http://www.ons.gov.uk/ons/guide-method/harmonisation/primary-set-of-harmonised-concepts-and-questions/index.html" target="_blank">Primary Standards for Harmonised Concepts and Questions for Social Data sources</a>'.
+<br/>
+The correspondence between the country specific ethnic group categories onto the UK classification is shown in the table below:
+<br/>
+<table border="1" cellspacing="0" cellpadding="2">
+ <tr bgcolor="#D9D9D9">
+  <th><font color="#0000FF">UK Output Classification<br/>(KS201UK)</font></th>
+  <th>England and Wales Classification<br/>(KS201EW)</th>
+  <th>Scotland Classification<br/>(KS201SC)</th>
+  <th>Northern Ireland Classification<br/>(KS201NI)</th>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">White</font></td>
+  <td>  White: English/Welsh/Scottish/Northern&nbsp;Irish/British<br/>
+	White: Irish<br/>
+	White: Other White</td>
+  <td>  White: Scottish<br/>
+	White: Other British<br/>
+	White: Irish<br/>
+	White: Polish<br/>
+	White: Other White</td>
+  <td>	White</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Gypsy/Traveller/Irish&nbsp;Traveller</font></td>
+  <td>White: Gypsy or Irish Traveller</td>
+  <td>White: Gypsy/Traveller</td>
+  <td>Irish Traveller</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Mixed/Multiple Ethnic Groups</font></td>
+  <td>	Mixed/multiple ethnic group: White and Black<br/>
+	Caribbean Mixed/multiple ethnic group: White and Black African<br/>
+	Mixed/multiple ethnic group: White and Asian<br/>
+	Mixed/multiple ethnic group: Other Mixed</td>
+  <td>Mixed or multiple ethnic groups</td>
+  <td>Mixed</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Indian</font></td>
+  <td>Asian/Asian British: Indian</td>
+  <td>Asian, Asian Scottish or Asian British: Indian, Indian Scottish or Indian British</td>
+  <td>Indian</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Pakistani</font></td>
+  <td>Asian/Asian British: Pakistani</td>
+  <td>Asian, Asian Scottish or Asian British: Pakistani, Pakistani Scottish or Pakistani British</td>
+  <td>Pakistani</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Bangladeshi</font></td>
+  <td>Asian/Asian British: Bangladeshi</td>
+  <td>Asian, Asian Scottish or Asian British: Bangladeshi, Bangladeshi Scottish or Bangladeshi British</td>
+  <td>Bangladeshi</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Chinese</font></td>
+  <td>Asian/Asian British: Chinese</td>
+  <td>Asian, Asian Scottish or Asian British: Chinese, Chinese Scottish or Chinese British</td>
+  <td>Chinese</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Other Asian</font></td>
+  <td>Asian/Asian British: Other Asian</td>
+  <td>Asian, Asian Scottish or Asian British: Other Asian</td>
+  <td>Other Asian</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Black/African/Caribbean/Black British</font></td>
+  <td>	Black/African/Caribbean/Black British: African<br/>
+	Black/African/Caribbean/Black British: Caribbean<br/>
+	Black/African/Caribbean/Black British: Other Black</td>
+  <td>	African: African, African Scottish or African British<br/>
+	African: Other African<br/>
+	Caribbean or Black: Caribbean, Caribbean Scottish or Caribbean British<br/>
+	Caribbean or Black: Black, Black Scottish or Black British<br/>
+	Caribbean or Black: Other Caribbean or Black</td>
+  <td>	Black African<br/>
+	Black Caribbean<br/>
+	Black Other</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Other ethnic group</font></td>
+  <td>	Other ethnic group: Arab<br/>
+	Other ethnic group: Any other ethnic group</td>
+  <td>	Other ethnic groups: Arab, Arab Scottish or Arab British<br/>
+	Other ethnic groups: Other ethnic group</td>
+  <td>Other</td>
+ </tr>
+</table>",
+F130020,KS201UK0005,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F130020,KS201UK0005,Ethnic group (UK harmonised),Asian/Asian British\ Indian,"Ethnic group classifies people according to their own perceived ethnic group and cultural background.
+<br/>
+Due to question and response category differences in the country-specific ethnic group question asked in the 2011 Censuses of the UK, some responses are not directly comparable. The UK output on ethnic group is therefore presented using a high-level classification as recommended by the ONS '<a href="http://webarchive.nationalarchives.gov.uk/20160105160709/http://www.ons.gov.uk/ons/guide-method/harmonisation/primary-set-of-harmonised-concepts-and-questions/index.html" target="_blank">Primary Standards for Harmonised Concepts and Questions for Social Data sources</a>'.
+<br/>
+The correspondence between the country specific ethnic group categories onto the UK classification is shown in the table below:
+<br/>
+<table border="1" cellspacing="0" cellpadding="2">
+ <tr bgcolor="#D9D9D9">
+  <th><font color="#0000FF">UK Output Classification<br/>(KS201UK)</font></th>
+  <th>England and Wales Classification<br/>(KS201EW)</th>
+  <th>Scotland Classification<br/>(KS201SC)</th>
+  <th>Northern Ireland Classification<br/>(KS201NI)</th>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">White</font></td>
+  <td>  White: English/Welsh/Scottish/Northern&nbsp;Irish/British<br/>
+	White: Irish<br/>
+	White: Other White</td>
+  <td>  White: Scottish<br/>
+	White: Other British<br/>
+	White: Irish<br/>
+	White: Polish<br/>
+	White: Other White</td>
+  <td>	White</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Gypsy/Traveller/Irish&nbsp;Traveller</font></td>
+  <td>White: Gypsy or Irish Traveller</td>
+  <td>White: Gypsy/Traveller</td>
+  <td>Irish Traveller</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Mixed/Multiple Ethnic Groups</font></td>
+  <td>	Mixed/multiple ethnic group: White and Black<br/>
+	Caribbean Mixed/multiple ethnic group: White and Black African<br/>
+	Mixed/multiple ethnic group: White and Asian<br/>
+	Mixed/multiple ethnic group: Other Mixed</td>
+  <td>Mixed or multiple ethnic groups</td>
+  <td>Mixed</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Indian</font></td>
+  <td>Asian/Asian British: Indian</td>
+  <td>Asian, Asian Scottish or Asian British: Indian, Indian Scottish or Indian British</td>
+  <td>Indian</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Pakistani</font></td>
+  <td>Asian/Asian British: Pakistani</td>
+  <td>Asian, Asian Scottish or Asian British: Pakistani, Pakistani Scottish or Pakistani British</td>
+  <td>Pakistani</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Bangladeshi</font></td>
+  <td>Asian/Asian British: Bangladeshi</td>
+  <td>Asian, Asian Scottish or Asian British: Bangladeshi, Bangladeshi Scottish or Bangladeshi British</td>
+  <td>Bangladeshi</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Chinese</font></td>
+  <td>Asian/Asian British: Chinese</td>
+  <td>Asian, Asian Scottish or Asian British: Chinese, Chinese Scottish or Chinese British</td>
+  <td>Chinese</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Other Asian</font></td>
+  <td>Asian/Asian British: Other Asian</td>
+  <td>Asian, Asian Scottish or Asian British: Other Asian</td>
+  <td>Other Asian</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Black/African/Caribbean/Black British</font></td>
+  <td>	Black/African/Caribbean/Black British: African<br/>
+	Black/African/Caribbean/Black British: Caribbean<br/>
+	Black/African/Caribbean/Black British: Other Black</td>
+  <td>	African: African, African Scottish or African British<br/>
+	African: Other African<br/>
+	Caribbean or Black: Caribbean, Caribbean Scottish or Caribbean British<br/>
+	Caribbean or Black: Black, Black Scottish or Black British<br/>
+	Caribbean or Black: Other Caribbean or Black</td>
+  <td>	Black African<br/>
+	Black Caribbean<br/>
+	Black Other</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Other ethnic group</font></td>
+  <td>	Other ethnic group: Arab<br/>
+	Other ethnic group: Any other ethnic group</td>
+  <td>	Other ethnic groups: Arab, Arab Scottish or Arab British<br/>
+	Other ethnic groups: Other ethnic group</td>
+  <td>Other</td>
+ </tr>
+</table>",
+F130021,KS201UK0006,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F130021,KS201UK0006,Ethnic group (UK harmonised),Asian/Asian British\ Pakistani,"Ethnic group classifies people according to their own perceived ethnic group and cultural background.
+<br/>
+Due to question and response category differences in the country-specific ethnic group question asked in the 2011 Censuses of the UK, some responses are not directly comparable. The UK output on ethnic group is therefore presented using a high-level classification as recommended by the ONS '<a href="http://webarchive.nationalarchives.gov.uk/20160105160709/http://www.ons.gov.uk/ons/guide-method/harmonisation/primary-set-of-harmonised-concepts-and-questions/index.html" target="_blank">Primary Standards for Harmonised Concepts and Questions for Social Data sources</a>'.
+<br/>
+The correspondence between the country specific ethnic group categories onto the UK classification is shown in the table below:
+<br/>
+<table border="1" cellspacing="0" cellpadding="2">
+ <tr bgcolor="#D9D9D9">
+  <th><font color="#0000FF">UK Output Classification<br/>(KS201UK)</font></th>
+  <th>England and Wales Classification<br/>(KS201EW)</th>
+  <th>Scotland Classification<br/>(KS201SC)</th>
+  <th>Northern Ireland Classification<br/>(KS201NI)</th>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">White</font></td>
+  <td>  White: English/Welsh/Scottish/Northern&nbsp;Irish/British<br/>
+	White: Irish<br/>
+	White: Other White</td>
+  <td>  White: Scottish<br/>
+	White: Other British<br/>
+	White: Irish<br/>
+	White: Polish<br/>
+	White: Other White</td>
+  <td>	White</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Gypsy/Traveller/Irish&nbsp;Traveller</font></td>
+  <td>White: Gypsy or Irish Traveller</td>
+  <td>White: Gypsy/Traveller</td>
+  <td>Irish Traveller</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Mixed/Multiple Ethnic Groups</font></td>
+  <td>	Mixed/multiple ethnic group: White and Black<br/>
+	Caribbean Mixed/multiple ethnic group: White and Black African<br/>
+	Mixed/multiple ethnic group: White and Asian<br/>
+	Mixed/multiple ethnic group: Other Mixed</td>
+  <td>Mixed or multiple ethnic groups</td>
+  <td>Mixed</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Indian</font></td>
+  <td>Asian/Asian British: Indian</td>
+  <td>Asian, Asian Scottish or Asian British: Indian, Indian Scottish or Indian British</td>
+  <td>Indian</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Pakistani</font></td>
+  <td>Asian/Asian British: Pakistani</td>
+  <td>Asian, Asian Scottish or Asian British: Pakistani, Pakistani Scottish or Pakistani British</td>
+  <td>Pakistani</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Bangladeshi</font></td>
+  <td>Asian/Asian British: Bangladeshi</td>
+  <td>Asian, Asian Scottish or Asian British: Bangladeshi, Bangladeshi Scottish or Bangladeshi British</td>
+  <td>Bangladeshi</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Chinese</font></td>
+  <td>Asian/Asian British: Chinese</td>
+  <td>Asian, Asian Scottish or Asian British: Chinese, Chinese Scottish or Chinese British</td>
+  <td>Chinese</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Other Asian</font></td>
+  <td>Asian/Asian British: Other Asian</td>
+  <td>Asian, Asian Scottish or Asian British: Other Asian</td>
+  <td>Other Asian</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Black/African/Caribbean/Black British</font></td>
+  <td>	Black/African/Caribbean/Black British: African<br/>
+	Black/African/Caribbean/Black British: Caribbean<br/>
+	Black/African/Caribbean/Black British: Other Black</td>
+  <td>	African: African, African Scottish or African British<br/>
+	African: Other African<br/>
+	Caribbean or Black: Caribbean, Caribbean Scottish or Caribbean British<br/>
+	Caribbean or Black: Black, Black Scottish or Black British<br/>
+	Caribbean or Black: Other Caribbean or Black</td>
+  <td>	Black African<br/>
+	Black Caribbean<br/>
+	Black Other</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Other ethnic group</font></td>
+  <td>	Other ethnic group: Arab<br/>
+	Other ethnic group: Any other ethnic group</td>
+  <td>	Other ethnic groups: Arab, Arab Scottish or Arab British<br/>
+	Other ethnic groups: Other ethnic group</td>
+  <td>Other</td>
+ </tr>
+</table>",
+F130022,KS201UK0007,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F130022,KS201UK0007,Ethnic group (UK harmonised),Asian/Asian British\ Bangladeshi,"Ethnic group classifies people according to their own perceived ethnic group and cultural background.
+<br/>
+Due to question and response category differences in the country-specific ethnic group question asked in the 2011 Censuses of the UK, some responses are not directly comparable. The UK output on ethnic group is therefore presented using a high-level classification as recommended by the ONS '<a href="http://webarchive.nationalarchives.gov.uk/20160105160709/http://www.ons.gov.uk/ons/guide-method/harmonisation/primary-set-of-harmonised-concepts-and-questions/index.html" target="_blank">Primary Standards for Harmonised Concepts and Questions for Social Data sources</a>'.
+<br/>
+The correspondence between the country specific ethnic group categories onto the UK classification is shown in the table below:
+<br/>
+<table border="1" cellspacing="0" cellpadding="2">
+ <tr bgcolor="#D9D9D9">
+  <th><font color="#0000FF">UK Output Classification<br/>(KS201UK)</font></th>
+  <th>England and Wales Classification<br/>(KS201EW)</th>
+  <th>Scotland Classification<br/>(KS201SC)</th>
+  <th>Northern Ireland Classification<br/>(KS201NI)</th>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">White</font></td>
+  <td>  White: English/Welsh/Scottish/Northern&nbsp;Irish/British<br/>
+	White: Irish<br/>
+	White: Other White</td>
+  <td>  White: Scottish<br/>
+	White: Other British<br/>
+	White: Irish<br/>
+	White: Polish<br/>
+	White: Other White</td>
+  <td>	White</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Gypsy/Traveller/Irish&nbsp;Traveller</font></td>
+  <td>White: Gypsy or Irish Traveller</td>
+  <td>White: Gypsy/Traveller</td>
+  <td>Irish Traveller</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Mixed/Multiple Ethnic Groups</font></td>
+  <td>	Mixed/multiple ethnic group: White and Black<br/>
+	Caribbean Mixed/multiple ethnic group: White and Black African<br/>
+	Mixed/multiple ethnic group: White and Asian<br/>
+	Mixed/multiple ethnic group: Other Mixed</td>
+  <td>Mixed or multiple ethnic groups</td>
+  <td>Mixed</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Indian</font></td>
+  <td>Asian/Asian British: Indian</td>
+  <td>Asian, Asian Scottish or Asian British: Indian, Indian Scottish or Indian British</td>
+  <td>Indian</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Pakistani</font></td>
+  <td>Asian/Asian British: Pakistani</td>
+  <td>Asian, Asian Scottish or Asian British: Pakistani, Pakistani Scottish or Pakistani British</td>
+  <td>Pakistani</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Bangladeshi</font></td>
+  <td>Asian/Asian British: Bangladeshi</td>
+  <td>Asian, Asian Scottish or Asian British: Bangladeshi, Bangladeshi Scottish or Bangladeshi British</td>
+  <td>Bangladeshi</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Chinese</font></td>
+  <td>Asian/Asian British: Chinese</td>
+  <td>Asian, Asian Scottish or Asian British: Chinese, Chinese Scottish or Chinese British</td>
+  <td>Chinese</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Other Asian</font></td>
+  <td>Asian/Asian British: Other Asian</td>
+  <td>Asian, Asian Scottish or Asian British: Other Asian</td>
+  <td>Other Asian</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Black/African/Caribbean/Black British</font></td>
+  <td>	Black/African/Caribbean/Black British: African<br/>
+	Black/African/Caribbean/Black British: Caribbean<br/>
+	Black/African/Caribbean/Black British: Other Black</td>
+  <td>	African: African, African Scottish or African British<br/>
+	African: Other African<br/>
+	Caribbean or Black: Caribbean, Caribbean Scottish or Caribbean British<br/>
+	Caribbean or Black: Black, Black Scottish or Black British<br/>
+	Caribbean or Black: Other Caribbean or Black</td>
+  <td>	Black African<br/>
+	Black Caribbean<br/>
+	Black Other</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Other ethnic group</font></td>
+  <td>	Other ethnic group: Arab<br/>
+	Other ethnic group: Any other ethnic group</td>
+  <td>	Other ethnic groups: Arab, Arab Scottish or Arab British<br/>
+	Other ethnic groups: Other ethnic group</td>
+  <td>Other</td>
+ </tr>
+</table>",
+F130023,KS201UK0008,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F130023,KS201UK0008,Ethnic group (UK harmonised),Asian/Asian British\ Chinese,"Ethnic group classifies people according to their own perceived ethnic group and cultural background.
+<br/>
+Due to question and response category differences in the country-specific ethnic group question asked in the 2011 Censuses of the UK, some responses are not directly comparable. The UK output on ethnic group is therefore presented using a high-level classification as recommended by the ONS '<a href="http://webarchive.nationalarchives.gov.uk/20160105160709/http://www.ons.gov.uk/ons/guide-method/harmonisation/primary-set-of-harmonised-concepts-and-questions/index.html" target="_blank">Primary Standards for Harmonised Concepts and Questions for Social Data sources</a>'.
+<br/>
+The correspondence between the country specific ethnic group categories onto the UK classification is shown in the table below:
+<br/>
+<table border="1" cellspacing="0" cellpadding="2">
+ <tr bgcolor="#D9D9D9">
+  <th><font color="#0000FF">UK Output Classification<br/>(KS201UK)</font></th>
+  <th>England and Wales Classification<br/>(KS201EW)</th>
+  <th>Scotland Classification<br/>(KS201SC)</th>
+  <th>Northern Ireland Classification<br/>(KS201NI)</th>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">White</font></td>
+  <td>  White: English/Welsh/Scottish/Northern&nbsp;Irish/British<br/>
+	White: Irish<br/>
+	White: Other White</td>
+  <td>  White: Scottish<br/>
+	White: Other British<br/>
+	White: Irish<br/>
+	White: Polish<br/>
+	White: Other White</td>
+  <td>	White</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Gypsy/Traveller/Irish&nbsp;Traveller</font></td>
+  <td>White: Gypsy or Irish Traveller</td>
+  <td>White: Gypsy/Traveller</td>
+  <td>Irish Traveller</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Mixed/Multiple Ethnic Groups</font></td>
+  <td>	Mixed/multiple ethnic group: White and Black<br/>
+	Caribbean Mixed/multiple ethnic group: White and Black African<br/>
+	Mixed/multiple ethnic group: White and Asian<br/>
+	Mixed/multiple ethnic group: Other Mixed</td>
+  <td>Mixed or multiple ethnic groups</td>
+  <td>Mixed</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Indian</font></td>
+  <td>Asian/Asian British: Indian</td>
+  <td>Asian, Asian Scottish or Asian British: Indian, Indian Scottish or Indian British</td>
+  <td>Indian</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Pakistani</font></td>
+  <td>Asian/Asian British: Pakistani</td>
+  <td>Asian, Asian Scottish or Asian British: Pakistani, Pakistani Scottish or Pakistani British</td>
+  <td>Pakistani</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Bangladeshi</font></td>
+  <td>Asian/Asian British: Bangladeshi</td>
+  <td>Asian, Asian Scottish or Asian British: Bangladeshi, Bangladeshi Scottish or Bangladeshi British</td>
+  <td>Bangladeshi</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Chinese</font></td>
+  <td>Asian/Asian British: Chinese</td>
+  <td>Asian, Asian Scottish or Asian British: Chinese, Chinese Scottish or Chinese British</td>
+  <td>Chinese</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Other Asian</font></td>
+  <td>Asian/Asian British: Other Asian</td>
+  <td>Asian, Asian Scottish or Asian British: Other Asian</td>
+  <td>Other Asian</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Black/African/Caribbean/Black British</font></td>
+  <td>	Black/African/Caribbean/Black British: African<br/>
+	Black/African/Caribbean/Black British: Caribbean<br/>
+	Black/African/Caribbean/Black British: Other Black</td>
+  <td>	African: African, African Scottish or African British<br/>
+	African: Other African<br/>
+	Caribbean or Black: Caribbean, Caribbean Scottish or Caribbean British<br/>
+	Caribbean or Black: Black, Black Scottish or Black British<br/>
+	Caribbean or Black: Other Caribbean or Black</td>
+  <td>	Black African<br/>
+	Black Caribbean<br/>
+	Black Other</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Other ethnic group</font></td>
+  <td>	Other ethnic group: Arab<br/>
+	Other ethnic group: Any other ethnic group</td>
+  <td>	Other ethnic groups: Arab, Arab Scottish or Arab British<br/>
+	Other ethnic groups: Other ethnic group</td>
+  <td>Other</td>
+ </tr>
+</table>",
+F130024,KS201UK0009,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F130024,KS201UK0009,Ethnic group (UK harmonised),Asian/Asian British\ Other Asian,"Ethnic group classifies people according to their own perceived ethnic group and cultural background.
+<br/>
+Due to question and response category differences in the country-specific ethnic group question asked in the 2011 Censuses of the UK, some responses are not directly comparable. The UK output on ethnic group is therefore presented using a high-level classification as recommended by the ONS '<a href="http://webarchive.nationalarchives.gov.uk/20160105160709/http://www.ons.gov.uk/ons/guide-method/harmonisation/primary-set-of-harmonised-concepts-and-questions/index.html" target="_blank">Primary Standards for Harmonised Concepts and Questions for Social Data sources</a>'.
+<br/>
+The correspondence between the country specific ethnic group categories onto the UK classification is shown in the table below:
+<br/>
+<table border="1" cellspacing="0" cellpadding="2">
+ <tr bgcolor="#D9D9D9">
+  <th><font color="#0000FF">UK Output Classification<br/>(KS201UK)</font></th>
+  <th>England and Wales Classification<br/>(KS201EW)</th>
+  <th>Scotland Classification<br/>(KS201SC)</th>
+  <th>Northern Ireland Classification<br/>(KS201NI)</th>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">White</font></td>
+  <td>  White: English/Welsh/Scottish/Northern&nbsp;Irish/British<br/>
+	White: Irish<br/>
+	White: Other White</td>
+  <td>  White: Scottish<br/>
+	White: Other British<br/>
+	White: Irish<br/>
+	White: Polish<br/>
+	White: Other White</td>
+  <td>	White</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Gypsy/Traveller/Irish&nbsp;Traveller</font></td>
+  <td>White: Gypsy or Irish Traveller</td>
+  <td>White: Gypsy/Traveller</td>
+  <td>Irish Traveller</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Mixed/Multiple Ethnic Groups</font></td>
+  <td>	Mixed/multiple ethnic group: White and Black<br/>
+	Caribbean Mixed/multiple ethnic group: White and Black African<br/>
+	Mixed/multiple ethnic group: White and Asian<br/>
+	Mixed/multiple ethnic group: Other Mixed</td>
+  <td>Mixed or multiple ethnic groups</td>
+  <td>Mixed</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Indian</font></td>
+  <td>Asian/Asian British: Indian</td>
+  <td>Asian, Asian Scottish or Asian British: Indian, Indian Scottish or Indian British</td>
+  <td>Indian</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Pakistani</font></td>
+  <td>Asian/Asian British: Pakistani</td>
+  <td>Asian, Asian Scottish or Asian British: Pakistani, Pakistani Scottish or Pakistani British</td>
+  <td>Pakistani</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Bangladeshi</font></td>
+  <td>Asian/Asian British: Bangladeshi</td>
+  <td>Asian, Asian Scottish or Asian British: Bangladeshi, Bangladeshi Scottish or Bangladeshi British</td>
+  <td>Bangladeshi</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Chinese</font></td>
+  <td>Asian/Asian British: Chinese</td>
+  <td>Asian, Asian Scottish or Asian British: Chinese, Chinese Scottish or Chinese British</td>
+  <td>Chinese</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Other Asian</font></td>
+  <td>Asian/Asian British: Other Asian</td>
+  <td>Asian, Asian Scottish or Asian British: Other Asian</td>
+  <td>Other Asian</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Black/African/Caribbean/Black British</font></td>
+  <td>	Black/African/Caribbean/Black British: African<br/>
+	Black/African/Caribbean/Black British: Caribbean<br/>
+	Black/African/Caribbean/Black British: Other Black</td>
+  <td>	African: African, African Scottish or African British<br/>
+	African: Other African<br/>
+	Caribbean or Black: Caribbean, Caribbean Scottish or Caribbean British<br/>
+	Caribbean or Black: Black, Black Scottish or Black British<br/>
+	Caribbean or Black: Other Caribbean or Black</td>
+  <td>	Black African<br/>
+	Black Caribbean<br/>
+	Black Other</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Other ethnic group</font></td>
+  <td>	Other ethnic group: Arab<br/>
+	Other ethnic group: Any other ethnic group</td>
+  <td>	Other ethnic groups: Arab, Arab Scottish or Arab British<br/>
+	Other ethnic groups: Other ethnic group</td>
+  <td>Other</td>
+ </tr>
+</table>",
+F130025,KS201UK0010,Ethnic group (UK harmonised),Black/African/Caribbean/Black British,"Ethnic group classifies people according to their own perceived ethnic group and cultural background.
+<br/>
+Due to question and response category differences in the country-specific ethnic group question asked in the 2011 Censuses of the UK, some responses are not directly comparable. The UK output on ethnic group is therefore presented using a high-level classification as recommended by the ONS '<a href="http://webarchive.nationalarchives.gov.uk/20160105160709/http://www.ons.gov.uk/ons/guide-method/harmonisation/primary-set-of-harmonised-concepts-and-questions/index.html" target="_blank">Primary Standards for Harmonised Concepts and Questions for Social Data sources</a>'.
+<br/>
+The correspondence between the country specific ethnic group categories onto the UK classification is shown in the table below:
+<br/>
+<table border="1" cellspacing="0" cellpadding="2">
+ <tr bgcolor="#D9D9D9">
+  <th><font color="#0000FF">UK Output Classification<br/>(KS201UK)</font></th>
+  <th>England and Wales Classification<br/>(KS201EW)</th>
+  <th>Scotland Classification<br/>(KS201SC)</th>
+  <th>Northern Ireland Classification<br/>(KS201NI)</th>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">White</font></td>
+  <td>  White: English/Welsh/Scottish/Northern&nbsp;Irish/British<br/>
+	White: Irish<br/>
+	White: Other White</td>
+  <td>  White: Scottish<br/>
+	White: Other British<br/>
+	White: Irish<br/>
+	White: Polish<br/>
+	White: Other White</td>
+  <td>	White</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Gypsy/Traveller/Irish&nbsp;Traveller</font></td>
+  <td>White: Gypsy or Irish Traveller</td>
+  <td>White: Gypsy/Traveller</td>
+  <td>Irish Traveller</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Mixed/Multiple Ethnic Groups</font></td>
+  <td>	Mixed/multiple ethnic group: White and Black<br/>
+	Caribbean Mixed/multiple ethnic group: White and Black African<br/>
+	Mixed/multiple ethnic group: White and Asian<br/>
+	Mixed/multiple ethnic group: Other Mixed</td>
+  <td>Mixed or multiple ethnic groups</td>
+  <td>Mixed</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Indian</font></td>
+  <td>Asian/Asian British: Indian</td>
+  <td>Asian, Asian Scottish or Asian British: Indian, Indian Scottish or Indian British</td>
+  <td>Indian</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Pakistani</font></td>
+  <td>Asian/Asian British: Pakistani</td>
+  <td>Asian, Asian Scottish or Asian British: Pakistani, Pakistani Scottish or Pakistani British</td>
+  <td>Pakistani</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Bangladeshi</font></td>
+  <td>Asian/Asian British: Bangladeshi</td>
+  <td>Asian, Asian Scottish or Asian British: Bangladeshi, Bangladeshi Scottish or Bangladeshi British</td>
+  <td>Bangladeshi</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Chinese</font></td>
+  <td>Asian/Asian British: Chinese</td>
+  <td>Asian, Asian Scottish or Asian British: Chinese, Chinese Scottish or Chinese British</td>
+  <td>Chinese</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Other Asian</font></td>
+  <td>Asian/Asian British: Other Asian</td>
+  <td>Asian, Asian Scottish or Asian British: Other Asian</td>
+  <td>Other Asian</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Black/African/Caribbean/Black British</font></td>
+  <td>	Black/African/Caribbean/Black British: African<br/>
+	Black/African/Caribbean/Black British: Caribbean<br/>
+	Black/African/Caribbean/Black British: Other Black</td>
+  <td>	African: African, African Scottish or African British<br/>
+	African: Other African<br/>
+	Caribbean or Black: Caribbean, Caribbean Scottish or Caribbean British<br/>
+	Caribbean or Black: Black, Black Scottish or Black British<br/>
+	Caribbean or Black: Other Caribbean or Black</td>
+  <td>	Black African<br/>
+	Black Caribbean<br/>
+	Black Other</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Other ethnic group</font></td>
+  <td>	Other ethnic group: Arab<br/>
+	Other ethnic group: Any other ethnic group</td>
+  <td>	Other ethnic groups: Arab, Arab Scottish or Arab British<br/>
+	Other ethnic groups: Other ethnic group</td>
+  <td>Other</td>
+ </tr>
+</table>",
+F130025,KS201UK0010,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F130026,KS201UK0011,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F130026,KS201UK0011,Ethnic group (UK harmonised),Other Ethnic Group,"Ethnic group classifies people according to their own perceived ethnic group and cultural background.
+<br/>
+Due to question and response category differences in the country-specific ethnic group question asked in the 2011 Censuses of the UK, some responses are not directly comparable. The UK output on ethnic group is therefore presented using a high-level classification as recommended by the ONS '<a href="http://webarchive.nationalarchives.gov.uk/20160105160709/http://www.ons.gov.uk/ons/guide-method/harmonisation/primary-set-of-harmonised-concepts-and-questions/index.html" target="_blank">Primary Standards for Harmonised Concepts and Questions for Social Data sources</a>'.
+<br/>
+The correspondence between the country specific ethnic group categories onto the UK classification is shown in the table below:
+<br/>
+<table border="1" cellspacing="0" cellpadding="2">
+ <tr bgcolor="#D9D9D9">
+  <th><font color="#0000FF">UK Output Classification<br/>(KS201UK)</font></th>
+  <th>England and Wales Classification<br/>(KS201EW)</th>
+  <th>Scotland Classification<br/>(KS201SC)</th>
+  <th>Northern Ireland Classification<br/>(KS201NI)</th>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">White</font></td>
+  <td>  White: English/Welsh/Scottish/Northern&nbsp;Irish/British<br/>
+	White: Irish<br/>
+	White: Other White</td>
+  <td>  White: Scottish<br/>
+	White: Other British<br/>
+	White: Irish<br/>
+	White: Polish<br/>
+	White: Other White</td>
+  <td>	White</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Gypsy/Traveller/Irish&nbsp;Traveller</font></td>
+  <td>White: Gypsy or Irish Traveller</td>
+  <td>White: Gypsy/Traveller</td>
+  <td>Irish Traveller</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Mixed/Multiple Ethnic Groups</font></td>
+  <td>	Mixed/multiple ethnic group: White and Black<br/>
+	Caribbean Mixed/multiple ethnic group: White and Black African<br/>
+	Mixed/multiple ethnic group: White and Asian<br/>
+	Mixed/multiple ethnic group: Other Mixed</td>
+  <td>Mixed or multiple ethnic groups</td>
+  <td>Mixed</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Indian</font></td>
+  <td>Asian/Asian British: Indian</td>
+  <td>Asian, Asian Scottish or Asian British: Indian, Indian Scottish or Indian British</td>
+  <td>Indian</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Pakistani</font></td>
+  <td>Asian/Asian British: Pakistani</td>
+  <td>Asian, Asian Scottish or Asian British: Pakistani, Pakistani Scottish or Pakistani British</td>
+  <td>Pakistani</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Bangladeshi</font></td>
+  <td>Asian/Asian British: Bangladeshi</td>
+  <td>Asian, Asian Scottish or Asian British: Bangladeshi, Bangladeshi Scottish or Bangladeshi British</td>
+  <td>Bangladeshi</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Chinese</font></td>
+  <td>Asian/Asian British: Chinese</td>
+  <td>Asian, Asian Scottish or Asian British: Chinese, Chinese Scottish or Chinese British</td>
+  <td>Chinese</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Asian/Asian British: Other Asian</font></td>
+  <td>Asian/Asian British: Other Asian</td>
+  <td>Asian, Asian Scottish or Asian British: Other Asian</td>
+  <td>Other Asian</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Black/African/Caribbean/Black British</font></td>
+  <td>	Black/African/Caribbean/Black British: African<br/>
+	Black/African/Caribbean/Black British: Caribbean<br/>
+	Black/African/Caribbean/Black British: Other Black</td>
+  <td>	African: African, African Scottish or African British<br/>
+	African: Other African<br/>
+	Caribbean or Black: Caribbean, Caribbean Scottish or Caribbean British<br/>
+	Caribbean or Black: Black, Black Scottish or Black British<br/>
+	Caribbean or Black: Other Caribbean or Black</td>
+  <td>	Black African<br/>
+	Black Caribbean<br/>
+	Black Other</td>
+ </tr>
+
+ <tr>
+  <td><font color="#0000FF">Other ethnic group</font></td>
+  <td>	Other ethnic group: Arab<br/>
+	Other ethnic group: Any other ethnic group</td>
+  <td>	Other ethnic groups: Arab, Arab Scottish or Arab British<br/>
+	Other ethnic groups: Other ethnic group</td>
+  <td>Other</td>
+ </tr>
+</table>",
+F130731,DC2201EW0001,Religion [E][S][W],Total\ Religion,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F130731,DC2201EW0001,Ethnic group [E][S][W],Total\ Ethnic group,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F130731,DC2201EW0001,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F130732,DC2201EW0002,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F130732,DC2201EW0002,Ethnic group [E][S][W],Total\ Ethnic group,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F130732,DC2201EW0002,Religion [E][S][W],Christian,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F130733,DC2201EW0003,Religion [E][S][W],Buddhist,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F130733,DC2201EW0003,Ethnic group [E][S][W],Total\ Ethnic group,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F130733,DC2201EW0003,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F130734,DC2201EW0004,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F130734,DC2201EW0004,Ethnic group [E][S][W],Total\ Ethnic group,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F130734,DC2201EW0004,Religion [E][S][W],Hindu,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F130735,DC2201EW0005,Ethnic group [E][S][W],Total\ Ethnic group,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F130735,DC2201EW0005,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F130735,DC2201EW0005,Religion [E][S][W],Jewish,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F130736,DC2201EW0006,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F130736,DC2201EW0006,Ethnic group [E][S][W],Total\ Ethnic group,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F130736,DC2201EW0006,Religion [E][S][W],Muslim,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F130737,DC2201EW0007,Ethnic group [E][S][W],Total\ Ethnic group,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F130737,DC2201EW0007,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F130737,DC2201EW0007,Religion [E][S][W],Sikh,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F130738,DC2201EW0008,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F130738,DC2201EW0008,Ethnic group [E][S][W],Total\ Ethnic group,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F130738,DC2201EW0008,Religion [E][S][W],Other religion,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F130739,DC2201EW0009,Ethnic group [E][S][W],Total\ Ethnic group,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F130739,DC2201EW0009,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F130739,DC2201EW0009,Religion [E][S][W],No religion,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F130740,DC2201EW0010,Religion [E][S][W],Religion not stated,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F130740,DC2201EW0010,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F130740,DC2201EW0010,Ethnic group [E][S][W],Total\ Ethnic group,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F130800,DC2201EW0011,Religion [E][S][W],Total\ Religion,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F130800,DC2201EW0011,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F130800,DC2201EW0011,Ethnic group [E][S][W],White,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F130801,DC2201EW0012,Ethnic group [E][S][W],White,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F130801,DC2201EW0012,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F130801,DC2201EW0012,Religion [E][S][W],Christian,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F130802,DC2201EW0013,Religion [E][S][W],Buddhist,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F130802,DC2201EW0013,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F130802,DC2201EW0013,Ethnic group [E][S][W],White,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F130803,DC2201EW0014,Ethnic group [E][S][W],White,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F130803,DC2201EW0014,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F130803,DC2201EW0014,Religion [E][S][W],Hindu,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F130804,DC2201EW0015,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F130804,DC2201EW0015,Ethnic group [E][S][W],White,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F130804,DC2201EW0015,Religion [E][S][W],Jewish,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F130805,DC2201EW0016,Ethnic group [E][S][W],White,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F130805,DC2201EW0016,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F130805,DC2201EW0016,Religion [E][S][W],Muslim,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F130806,DC2201EW0017,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F130806,DC2201EW0017,Ethnic group [E][S][W],White,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F130806,DC2201EW0017,Religion [E][S][W],Sikh,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F130807,DC2201EW0018,Ethnic group [E][S][W],White,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F130807,DC2201EW0018,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F130807,DC2201EW0018,Religion [E][S][W],Other religion,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F130808,DC2201EW0019,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F130808,DC2201EW0019,Religion [E][S][W],No religion,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F130808,DC2201EW0019,Ethnic group [E][S][W],White,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F130809,DC2201EW0020,Ethnic group [E][S][W],White,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F130809,DC2201EW0020,Religion [E][S][W],Religion not stated,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F130809,DC2201EW0020,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F131145,DC2201EW0061,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F131145,DC2201EW0061,Ethnic group [E][S][W],Mixed/multiple ethnic group,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F131145,DC2201EW0061,Religion [E][S][W],Total\ Religion,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F131146,DC2201EW0062,Religion [E][S][W],Christian,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F131146,DC2201EW0062,Ethnic group [E][S][W],Mixed/multiple ethnic group,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F131146,DC2201EW0062,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F131147,DC2201EW0063,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F131147,DC2201EW0063,Ethnic group [E][S][W],Mixed/multiple ethnic group,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F131147,DC2201EW0063,Religion [E][S][W],Buddhist,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F131148,DC2201EW0064,Religion [E][S][W],Hindu,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F131148,DC2201EW0064,Ethnic group [E][S][W],Mixed/multiple ethnic group,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F131148,DC2201EW0064,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F131149,DC2201EW0065,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F131149,DC2201EW0065,Ethnic group [E][S][W],Mixed/multiple ethnic group,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F131149,DC2201EW0065,Religion [E][S][W],Jewish,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F131150,DC2201EW0066,Ethnic group [E][S][W],Mixed/multiple ethnic group,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F131150,DC2201EW0066,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F131150,DC2201EW0066,Religion [E][S][W],Muslim,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F131151,DC2201EW0067,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F131151,DC2201EW0067,Ethnic group [E][S][W],Mixed/multiple ethnic group,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F131151,DC2201EW0067,Religion [E][S][W],Sikh,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F131152,DC2201EW0068,Ethnic group [E][S][W],Mixed/multiple ethnic group,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F131152,DC2201EW0068,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F131152,DC2201EW0068,Religion [E][S][W],Other religion,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F131153,DC2201EW0069,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F131153,DC2201EW0069,Ethnic group [E][S][W],Mixed/multiple ethnic group,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F131153,DC2201EW0069,Religion [E][S][W],No religion,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F131154,DC2201EW0070,Religion [E][S][W],Religion not stated,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F131154,DC2201EW0070,Ethnic group [E][S][W],Mixed/multiple ethnic group,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F131154,DC2201EW0070,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F131490,DC2201EW0111,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F131490,DC2201EW0111,Ethnic group [E][S][W],Asian/Asian British,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F131490,DC2201EW0111,Religion [E][S][W],Total\ Religion,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F131491,DC2201EW0112,Religion [E][S][W],Christian,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F131491,DC2201EW0112,Ethnic group [E][S][W],Asian/Asian British,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F131491,DC2201EW0112,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F131492,DC2201EW0113,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F131492,DC2201EW0113,Ethnic group [E][S][W],Asian/Asian British,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F131492,DC2201EW0113,Religion [E][S][W],Buddhist,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F131493,DC2201EW0114,Religion [E][S][W],Hindu,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F131493,DC2201EW0114,Ethnic group [E][S][W],Asian/Asian British,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F131493,DC2201EW0114,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F131494,DC2201EW0115,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F131494,DC2201EW0115,Religion [E][S][W],Jewish,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F131494,DC2201EW0115,Ethnic group [E][S][W],Asian/Asian British,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F131495,DC2201EW0116,Ethnic group [E][S][W],Asian/Asian British,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F131495,DC2201EW0116,Religion [E][S][W],Muslim,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F131495,DC2201EW0116,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F131496,DC2201EW0117,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F131496,DC2201EW0117,Religion [E][S][W],Sikh,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F131496,DC2201EW0117,Ethnic group [E][S][W],Asian/Asian British,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F131497,DC2201EW0118,Ethnic group [E][S][W],Asian/Asian British,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F131497,DC2201EW0118,Religion [E][S][W],Other religion,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F131497,DC2201EW0118,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F131498,DC2201EW0119,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F131498,DC2201EW0119,Religion [E][S][W],No religion,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F131498,DC2201EW0119,Ethnic group [E][S][W],Asian/Asian British,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F131499,DC2201EW0120,Ethnic group [E][S][W],Asian/Asian British,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F131499,DC2201EW0120,Religion [E][S][W],Religion not stated,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F131499,DC2201EW0120,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F131904,DC2201EW0171,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F131904,DC2201EW0171,Ethnic group [E][S][W],Black/African/Caribbean/Black British,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F131904,DC2201EW0171,Religion [E][S][W],Total\ Religion,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F131905,DC2201EW0172,Religion [E][S][W],Christian,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F131905,DC2201EW0172,Ethnic group [E][S][W],Black/African/Caribbean/Black British,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F131905,DC2201EW0172,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F131906,DC2201EW0173,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F131906,DC2201EW0173,Ethnic group [E][S][W],Black/African/Caribbean/Black British,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F131906,DC2201EW0173,Religion [E][S][W],Buddhist,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F131907,DC2201EW0174,Religion [E][S][W],Hindu,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F131907,DC2201EW0174,Ethnic group [E][S][W],Black/African/Caribbean/Black British,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F131907,DC2201EW0174,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F131908,DC2201EW0175,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F131908,DC2201EW0175,Ethnic group [E][S][W],Black/African/Caribbean/Black British,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F131908,DC2201EW0175,Religion [E][S][W],Jewish,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F131909,DC2201EW0176,Ethnic group [E][S][W],Black/African/Caribbean/Black British,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F131909,DC2201EW0176,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F131909,DC2201EW0176,Religion [E][S][W],Muslim,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F131910,DC2201EW0177,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F131910,DC2201EW0177,Ethnic group [E][S][W],Black/African/Caribbean/Black British,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F131910,DC2201EW0177,Religion [E][S][W],Sikh,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F131911,DC2201EW0178,Ethnic group [E][S][W],Black/African/Caribbean/Black British,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F131911,DC2201EW0178,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F131911,DC2201EW0178,Religion [E][S][W],Other religion,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F131912,DC2201EW0179,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F131912,DC2201EW0179,Religion [E][S][W],No religion,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F131912,DC2201EW0179,Ethnic group [E][S][W],Black/African/Caribbean/Black British,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F131913,DC2201EW0180,Ethnic group [E][S][W],Black/African/Caribbean/Black British,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F131913,DC2201EW0180,Religion [E][S][W],Religion not stated,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F131913,DC2201EW0180,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F132180,DC2201EW0211,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F132180,DC2201EW0211,Ethnic group [E][S][W],Other ethnic group,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F132180,DC2201EW0211,Religion [E][S][W],Total\ Religion,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F132181,DC2201EW0212,Religion [E][S][W],Christian,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F132181,DC2201EW0212,Ethnic group [E][S][W],Other ethnic group,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F132181,DC2201EW0212,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F132182,DC2201EW0213,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F132182,DC2201EW0213,Ethnic group [E][S][W],Other ethnic group,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F132182,DC2201EW0213,Religion [E][S][W],Buddhist,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F132183,DC2201EW0214,Religion [E][S][W],Hindu,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F132183,DC2201EW0214,Ethnic group [E][S][W],Other ethnic group,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F132183,DC2201EW0214,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F132184,DC2201EW0215,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F132184,DC2201EW0215,Ethnic group [E][S][W],Other ethnic group,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F132184,DC2201EW0215,Religion [E][S][W],Jewish,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F132185,DC2201EW0216,Ethnic group [E][S][W],Other ethnic group,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F132185,DC2201EW0216,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F132185,DC2201EW0216,Religion [E][S][W],Muslim,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F132186,DC2201EW0217,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F132186,DC2201EW0217,Ethnic group [E][S][W],Other ethnic group,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F132186,DC2201EW0217,Religion [E][S][W],Sikh,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F132187,DC2201EW0218,Ethnic group [E][S][W],Other ethnic group,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F132187,DC2201EW0218,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F132187,DC2201EW0218,Religion [E][S][W],Other religion,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F132188,DC2201EW0219,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F132188,DC2201EW0219,Ethnic group [E][S][W],Other ethnic group,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F132188,DC2201EW0219,Religion [E][S][W],No religion,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F132189,DC2201EW0220,Religion [E][S][W],Religion not stated,"This is a person's current religion, or if the person does not have a religion, 'no religion'. No determination is made about whether a person was a practicing member of a religion. Unlike other census questions where missing answers are imputed, this question was voluntary, and where no answer was provided the response is categorised as 'not stated'.",
+F132189,DC2201EW0220,Ethnic group [E][S][W],Other ethnic group,Ethnic group classifies people according to their own perceived ethnic group and cultural background.,
+F132189,DC2201EW0220,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F136983,H01UK0001,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F136983,H01UK0001,Population (usual residents),All usual residents in households,"The main population base for statistics from the 2011 Census is the usual resident population as at census day, 27 March 2011. Although the population base for enumeration included non-UK born short-term residents, this population is analysed separately and is not included in the main outputs from the 2011 Census.
+<br/> All statistics, unless specified, are produced using only usual residents of the UK.
+For 2011 Census purposes, a usual resident of the UK is anyone who, on census day, was in the UK and had stayed or intended to stay in the UK for a period of 12 months or more, or had a permanent UK address and was outside the UK and intended to be outside the UK for less than 12 months.
+For information about the main population base for statistics, how other population sub-groups are counted, and all variable definitions, see information about  <a href="http://web.ons.gov.uk/ons/guide-method/census/2011/census-data/2011-census-user-guide/information-by-variable/index.html" target="_blank">variables and classifications</a>.",
+F167,QS103EW0001,Age,Total\ Age,"Age is derived from the date of birth question and is a person's age at their last birthday, at 27 March 2011. Dates of birth that imply an age over 115 are treated as invalid and the person's age is imputed. Infants less than one year old are classified as 0 years of age.",
+F167,QS103EW0001,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F184,KS102EW0018,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F184,KS102EW0018,Age,Mean age,"Age is derived from the date of birth question and is a person's age at their last birthday, at 27 March 2011. Dates of birth that imply an age over 115 are treated as invalid and the person's age is imputed. Infants less than one year old are classified as 0 years of age.",
+F185,KS102EW0019,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F185,KS102EW0019,Age,Median age,"Age is derived from the date of birth question and is a person's age at their last birthday, at 27 March 2011. Dates of birth that imply an age over 115 are treated as invalid and the person's age is imputed. Infants less than one year old are classified as 0 years of age.",
+F2340,QS104EW0001,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F2340,QS104EW0001,Sex,Total\ Sex,The classification of a person as either male or female.,
+F2341,QS104EW0002,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F2341,QS104EW0002,Sex,Males,The classification of a person as either male or female.,
+F2342,QS104EW0003,Unit,Persons,The unit is for a particular count (e.g. people or households),
+F2342,QS104EW0003,Sex,Females,The classification of a person as either male or female.,
