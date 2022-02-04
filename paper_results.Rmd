@@ -1,0 +1,148 @@
+---
+title: "Missing paper"
+author: "Nadia Kennar, Reka Solymosi"
+date: "04/02/2022"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+
+library(readr)
+library(dplyr)
+library(janitor)
+library(sf)
+library(lubridate)
+library(ineq)
+library(spdep)
+
+
+# calls <- read_csv("Z:\\n8_data_v2.csv.gz") %>% clean_names()
+calls <- read_csv("/Volumes/n8_covid/n8_data_v2.csv.gz") %>% clean_names()
+missing <- subset(calls, incident_type == "Missing Person")
+cheshire_lsoas <- st_read("data/cheshire_lsoas.geojson")
+
+```
+# Results
+
+In total `r nrow(calls)` calls were made to the police force between 2015 - 2020. Of these, `r nrow(missing)` were about missing incidents. `r nrow(subset(missing, !lsoa %in% cheshire_lsoas$LSOA11NM))` of these calls were made from LSOAs which were outside the study area, so they were excluded. 
+
+
+```{r selectcheshireonly}
+
+missing <- missing %>% filter(lsoa %in% cheshire_lsoas$LSOA11NM)
+
+```
+
+
+The total sample was therefore `r nrow(missing)` calls about missing incidents across `r length(unique(missing$lsoa))` LSOAs within the force in our study made between  `r as.Date(min(ymd_hms(missing$incident_date_time)))` and `r as.Date(max(ymd_hms(missing$incident_date_time)))`. 
+
+```{r origintables}
+
+origintab <- missing %>% 
+  group_by(call_origin) %>% 
+  count() %>% 
+  mutate(perc = round((n / sum(.$n))*100,1))
+
+othersrcs <- origintab %>% filter(!call_origin %in% c("Public Non Emergency (inc. Door Phones and PCPs)", "999", "Unknown Choice List Value")) %>% pull(call_origin)
+
+```
+
+Of these, the majority (`r origintab %>% filter(call_origin == "Public Non Emergency (inc. Door Phones and PCPs)") %>% pull(perc)`%, n = `r origintab %>% filter(call_origin == "Public Non Emergency (inc. Door Phones and PCPs)") %>% pull(n)`)  came through public non emergency reports (e.g. calling 101), `r origintab %>% filter(call_origin == "999") %>% pull(perc)`%, n = `r origintab %>% filter(call_origin == "999") %>% pull(n)`) through 999 calls, and `r sum(origintab %>% filter(call_origin %in% othersrcs) %>% pull(perc))`% (n = `r sum(origintab %>% filter(call_origin %in% othersrcs) %>% pull(n))`) from other emergency or police themselves (in `r origintab %>% filter(call_origin == "Unknown Choice List Value") %>% pull(perc)`% (n = `r origintab %>% filter(call_origin == "Unknown Choice List Value") %>% pull(n)`) of calls origin was not recorded). 
+
+## Concentration of missing incidents
+
+If distributed equally throughout all neighbourhoods, we would expect to see `r round(nrow(missing)/length(unique(missing$lsoa)),0)` incidents per LSOA. However we know that many incidents are due to repeat missing episodes of the same individuals. While we do not have individual level data here, we can consider concentration within neighbourhoods. One approach is to use Lorenz curves. 
+
+One way to measure inequality in the distribution of missing incidents is to use  Lorenz curve, and associated Gini coefficient. The Lorenz curve is a probability plot (a P–P plot) comparing the distribution of a variable against a hypothetical uniform distribution of that variable. It can usually be represented by a function $L(F)$, where $F$, the cumulative portion of the population, is represented by the horizontal axis, and $L$, the cumulative portion of the variable of interest (e.g. missing incidents), is represented by the vertical axis. While Lorenz curves are used typically to graph inequality of distribution of wealth they can be applied in this case to explore unequal distribution of crimes between micro-places. A perfectly equal distribution would be depicted by the straight line $y = x$. [ @lorenz1905methods, @zeileis2012package]. The corresponding Gini coefficient represents the ratio of the area between the line of perfect equality and the observed Lorenz curve to the area between the line of perfect equality and the line of perfect inequality [@gastwirth1972estimation]. The closer the coefficient is to 1, the more unequal the distribution is [@zeileis2012package].
+
+Figure REF shows a generalized Lorenz curve ( $= \text{ordinary Lorenz curve} * mean(x)$). The result can be interpreted like this: $p*100$ percent account for $L(p)*100$ percent of $x$. 
+
+```{r lorenz}
+
+calls_per_lsoa <- missing %>% group_by(lsoa) %>% count()
+misper_lorenz <- Lc(calls_per_lsoa$n)
+plot(misper_lorenz)
+
+```
+
+Upon seeing this, we can consider that many of the LSOAs in our study area contribute very little to overall calls for missing persons, and it is instead the top few which contribute most of the calls. 
+
+
+```{r gini}
+ineq(calls_per_lsoa$n, type="Gini")
+```
+
+We can quantify this further using the Gini coefficient, which gives a score of `r round(ineq(calls_per_lsoa$n, type="Gini")*100,1)`%. This is considerable - for context with respect to income, the United Nations suggests that a national Gini coefficient larger than 0.40 is considered high [@catalano2009measuring]. 
+
+```{r top25perc}
+
+top25 <- calls_per_lsoa %>% filter(n >= summary(calls_per_lsoa$n)[5])
+
+
+```
+
+Evidently, we see concentration of missing incidents in neighbourhoods; the top quartile (25%) of LSOAs account for `r round(sum(top25$n)/sum(calls_per_lsoa$n)*100,1)`$ of all calls in our data set. 
+
+
+### Inequality over time
+
+We can consider how this inequality might shift over time (i.e. are missing incidents becoming more or less concentrated?). 
+
+
+```{r ginibyyear}
+
+
+
+datalist <- list()
+i <- 1
+for (yr in 2015:2020) {
+  
+  datalist[[i]] <- data.frame(Year = yr, 
+                              Gini = round(ineq(missing %>% 
+    filter(year(ymd_hms(incident_date_time)) == yr) %>% 
+    group_by(lsoa) %>% 
+      count() %>% 
+      pull(n), type="Gini")*100,1))
+  
+  i <- i + 1
+  
+}
+
+ginibyyear <- do.call(rbind, datalist)
+
+ginibyyear
+```
+
+We can see that the inequality is roughly the same year on year, however when disaggregating the data into years, the score is higher (between `r min(ginibyyear$Gini)`% and `r max(ginibyyear$Gini)`%) than taking all data together (`r round(ineq(calls_per_lsoa$n, type="Gini")*100,1)`%). This suggests that where missing incidents concentrate might vary over time. PICKUP IN DISCUSSION ABOUT THE INDIVIDUALS WHO GO MISSING MANY TIMES MOVING MIGHT LEAD TO MOVING HOTSPOTS, CITE SAM'S THESIS TOO IF RELEVANT. 
+
+
+
+### Spatial concentration
+
+Since we're looking at concentration of missing incidents in geographical locations, it is appropriate to carry out spatial analysis of concentration. 
+
+
+```{r globalmoran}
+
+
+
+##global 
+
+# generate weight list using Queen 
+missing_m <- as(cheshire_lsoa, "Spatial")
+w <- poly2nb(missing_m, row.names=missing_m$code)
+ww <-  nb2listw(w, style='W')
+
+moran.plot(missing_m$count, ww) 
+#positive spatial autocorrelation 
+
+moran(missing_m$count, ww, n=length(ww$neighbours), S0=Szero(ww))
+#0.2462985
+
+moran.mc(missing_m$count, ww, nsim=99999)
+
+
+```
+
+
